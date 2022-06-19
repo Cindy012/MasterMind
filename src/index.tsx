@@ -5,12 +5,12 @@ import reportWebVitals from './reportWebVitals';
 import MasterMind from './Components/MasterMind';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+	document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <MasterMind />
-  </React.StrictMode>
+	<React.StrictMode>
+		<MasterMind />
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

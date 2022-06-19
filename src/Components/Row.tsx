@@ -1,43 +1,44 @@
 // import React, { useEffect, useState } from 'react';
-// import Pin from './Pin';
+import Peg from "./Peg";
 
-import Pin from "./Pin";
+interface RowProps {
+    rowId: number;
+}
+const Row:React.FC<RowProps> = ( {rowId}) => {
+    const Pegs = 4;
+    //   const [row, setRow] = useState<JSX.Element[]>();
 
-const Row = () => {
-  const pins = 4;
-//   const [row, setRow] = useState<JSX.Element[]>();
+    //   useEffect(() => {
+    //     fillRow();
+    //   }, []);
 
-//   useEffect(() => {
-//     fillRow();
-//   }, []);
+    //   const fillRow = () => {
+    //     const newRow = [];
+    //       let i = 0;
+    //       while(i < Pegs) {
+    //         newRow.push(<Peg />);
+    //       }
 
-//   const fillRow = () => {
-//     const newRow = [];
-//       let i = 0;
-//       while(i < pins) {
-//         newRow.push(<Pin />);
-//       }
+    //       setRow(newRow);
+    //   }
 
-//       setRow(newRow);
-//   }
+    const fillRow = () => {
+        const rowsList = [];
 
-const fillRow = () => {
-    const rowsList = [];
+        for (let i = 0; i < Pegs; i++) {
+            rowsList.push(
+            <Peg key={i} rowId={ rowId } PegId={i}/>
+            );
+        }
 
-    for (let i = 0; i < pins; i++) {
-        rowsList.push(
-          <Pin key={i}/>
-        );
-    }
+        return rowsList;
+    };
 
-    return rowsList;
-};
-
-  return (
+    return (
     <div className="row">
         { fillRow() }
     </div>
-  );
+    );
 }
 
 export default Row;
