@@ -27,7 +27,7 @@ const Row:React.FC<RowProps> = ( {rowId}) => {
 
         for (let i = 0; i < Pegs; i++) {
             rowsList.push(
-            <Peg key={i} rowId={ rowId } PegId={i}/>
+            <Peg key={i} rowId={ rowId } pegId={i}/>
             );
         }
 
