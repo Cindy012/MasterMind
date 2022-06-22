@@ -4,9 +4,10 @@ interface PegProps {
     rowId?: number;
     pegId?: number;
     className?: Color;
+    onClick?: (color: Color) => void;
 }
 
-const Peg:React.FC<PegProps> = ({ rowId, pegId, className }) => {
+const Peg:React.FC<PegProps> = ({ rowId, pegId, className, onClick }) => {
     const clickBoardPeg = (rowId?: number, pegId?: number) => {
         if (!rowId && !pegId && (typeof rowId === 'undefined' || typeof pegId === 'undefined')) {
             return;
@@ -14,11 +15,11 @@ const Peg:React.FC<PegProps> = ({ rowId, pegId, className }) => {
         console.log('Hi');
     };
 
-    const selectColor = (color?: string) => {
-        if (!color && typeof color === 'undefined') {
+    const selectColor = (color?: Color) => {
+		if (!color || typeof color === 'undefined' || (!onClick || typeof color === 'undefined')) {
             return;
         }
-        console.log(color);
+        onClick(color);
     };
 
     return (

@@ -4,11 +4,7 @@ export enum Color {
     Green = "green",
     LightBlue = "lightblue",
     Blue = "blue",
-    Purple = "purple"
-}
-
-export enum ClueColor{
-    Red = "red",
+    Purple = "purple",
     Black = "black",
     White = "white"
 }
