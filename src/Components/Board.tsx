@@ -4,7 +4,8 @@ import Peg from './Peg';
 import Row from './Row';
 
 const Board = () => {
-	const [currentColor, setCurrentColor] = useState<Color>(Color.White); 
+	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
+	const [board, setBoard] = useState<[[],[]]>();
 
 	const totalRows = 12;
 	const fillRows = () => {
@@ -33,12 +34,12 @@ const Board = () => {
 	function showAvailableColors() {
 		return (
 			<Fragment>
-				<Peg className= {Color.Red} onClick= {selectCurrentColor} />
-				<Peg className= {Color.Orange} onClick= {selectCurrentColor} />
-				<Peg className= {Color.Green} onClick= {selectCurrentColor} />
-				<Peg className= {Color.LightBlue} onClick= {selectCurrentColor}/>
-				<Peg className= {Color.Blue} onClick= {selectCurrentColor}/>
-				<Peg className= {Color.Purple} onClick= {selectCurrentColor}/>
+				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Orange} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Green} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.LightBlue} selectColor= {selectCurrentColor}/>
+				<Peg className= {Color.Blue} selectColor= {selectCurrentColor}/>
+				<Peg className= {Color.Purple} selectColor= {selectCurrentColor}/>
 			</Fragment>
 		)
 	};
