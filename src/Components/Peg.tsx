@@ -4,29 +4,30 @@ interface PegProps {
     rowId?: number;
     pegId?: number;
     className?: Color;
-    onClick?: (color: Color) => void;
+    selectColor?: (color: Color) => void;
+    colorPeg?: (rowId: number, pegId: number) => void;
 }
 
-const Peg:React.FC<PegProps> = ({ rowId, pegId, className, onClick }) => {
-    const clickBoardPeg = (rowId?: number, pegId?: number) => {
-        if (!rowId && !pegId && (typeof rowId === 'undefined' || typeof pegId === 'undefined')) {
+const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg }) => {
+    const colorSelectedPeg = (rowId?: number, pegId?: number) => {
+        if ((!rowId || typeof rowId === 'undefined') || (!pegId || typeof pegId === 'undefined') || (!colorPeg || typeof colorPeg === 'undefined')) {
             return;
         }
-        console.log('Hi');
+        colorPeg(rowId, pegId);
     };
 
-    const selectColor = (color?: Color) => {
-		if (!color || typeof color === 'undefined' || (!onClick || typeof color === 'undefined')) {
+    const selectedColor = (color?: Color) => {
+		if (!color || typeof color === 'undefined' || (!selectColor || typeof color === 'undefined')) {
             return;
         }
-        onClick(color);
+        selectColor(color);
     };
 
     return (
         <button 
             className={ className ? `peg ${className}` : 'peg' } 
             onClick={() => { 
-                className ? selectColor(className) : clickBoardPeg(rowId, pegId); 
+                className ? selectedColor(className) : colorSelectedPeg(rowId, pegId); 
             }}
         >
         </button>
