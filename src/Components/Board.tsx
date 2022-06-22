@@ -1,9 +1,11 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Color } from '../Color';
 import Peg from './Peg';
 import Row from './Row';
 
 const Board = () => {
+	const [currentColor, setCurrentColor] = useState<Color>(Color.White); 
+
 	const totalRows = 12;
 	const fillRows = () => {
 		const rowsList = [];
@@ -24,18 +26,27 @@ const Board = () => {
 		)
 	};
 
+	const selectCurrentColor= (color: Color) => {
+		setCurrentColor(color);
+	};
+	
 	function showAvailableColors() {
 		return (
 			<Fragment>
-				<Peg className = {Color.Red}/>
-				<Peg className = {Color.Orange}/>
-				<Peg className = {Color.Green}/>
-				<Peg className = {Color.LightBlue}/>
-				<Peg className = {Color.Blue}/>
-				<Peg className = {Color.Purple}/>
+				<Peg className= {Color.Red} onClick= {selectCurrentColor} />
+				<Peg className= {Color.Orange} onClick= {selectCurrentColor} />
+				<Peg className= {Color.Green} onClick= {selectCurrentColor} />
+				<Peg className= {Color.LightBlue} onClick= {selectCurrentColor}/>
+				<Peg className= {Color.Blue} onClick= {selectCurrentColor}/>
+				<Peg className= {Color.Purple} onClick= {selectCurrentColor}/>
 			</Fragment>
 		)
 	};
+
+	useEffect(() => {
+		fillRows();
+		console.log(currentColor);
+    }, [currentColor]);
 
 	return (
 		<div id="board-content">
