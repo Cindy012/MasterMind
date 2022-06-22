@@ -4,17 +4,27 @@ import Peg from './Peg';
 import Row from './Row';
 
 const Board = () => {
-	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
-	const [board, setBoard] = useState<[[],[]]>();
-
+	// const chance = 0;
 	const totalRows = 12;
+	const pegsInRow = 4;
+	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
+	// const [board, setBoard] = useState<[number[], number[]]>([[],[]]);
+	const [board, setBoard] = useState<Color[][]>();
+	// const [currentRow, setCurrentRow] = useState<number[]>(board[0][chance]);
+
 	const fillRows = () => {
 		const rowsList = [];
 
 		for (let i = 0; i < totalRows; i++) {
-			rowsList.push(
-			<Row key={i} rowId={i} />,
-			);
+			if (board || typeof board !== 'undefined') {
+				rowsList.push(
+					<Row key={i} rowId={i} board={board} />,
+				);
+			} else {
+				rowsList.push(
+					<Row key={i} rowId={i} />,
+				);
+			}
 		}
       	return rowsList;
 	};
@@ -44,10 +54,26 @@ const Board = () => {
 		)
 	};
 
+	function initializeBoard() {
+		let boardList:Array<Color>[] = [];
+		for(let i = 0; i < totalRows; i++) {
+			boardList.push(new Array<Color>(pegsInRow));
+		}
+		return boardList;
+	}
+
 	useEffect(() => {
-		fillRows();
 		console.log(currentColor);
     }, [currentColor]);
+
+	// useEffect(() => {
+	// 	fillRows();
+    // }, [board]);
+
+	useEffect(() => {
+		const newBoard = initializeBoard();
+		setBoard(newBoard);
+    }, []);
 
 	return (
 		<div id="board-content">
