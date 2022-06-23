@@ -9,14 +9,14 @@ const Board = () => {
 	const pegsInRow = 4;
 	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
 	const [board, setBoard] = useState<Color[][]>();
+	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [currentRow, setCurrentRow] = useState<Color[]>(new Array(4));
 
-	const fillRows = () => {
-		const rowsList = [];
-
+	const fillViewBoard = () => {
+		const boardList = [];
 		for (let i = 0; i < totalRows; i++) {
 			if (board || typeof board !== 'undefined') {
-				rowsList.push(
+				boardList.push(
 					<Row 
 						key= {i}
 						rowId= {i}
@@ -26,12 +26,12 @@ const Board = () => {
 					/>
 				);
 			} else {
-				rowsList.push(
+				boardList.push(
 					<Row key={i} rowId={i} pegsInRow= {pegsInRow}/>,
 				);
 			}
 		}
-      	return rowsList;
+      	setBoardView(boardList);
 	};
 
 	function showClues() {
@@ -84,10 +84,10 @@ const Board = () => {
 		console.log(currentColor);
     }, [currentColor]);
 
-	// useEffect(() => {
-	// 	fillRows();
-	// 	setCurrentRow([]);
-	// }, [board]);
+	useEffect(() => {
+		fillViewBoard();
+		setCurrentRow([]);
+	}, [board]);
 
 	useEffect(() => {
 		console.log(currentRow);
@@ -100,7 +100,7 @@ const Board = () => {
 	return (
 		<div id="board-content">
 			<div id="board">
-				{ fillRows() }
+				{ boardView }
 			</div>
 			<div id="board-clue">
 				{ showClues() }
