@@ -4,13 +4,14 @@ import Peg from './Peg';
 import Row from './Row';
 
 const Board = () => {
-	let chance = 0;
+	let turn = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
+	const beginStateRow: Color[] = [Color.White, Color.White, Color.White, Color.White];
 	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
 	const [board, setBoard] = useState<Color[][]>();
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
-	const [currentRow, setCurrentRow] = useState<Color[]>(new Array(4));
+	const [currentRow, setCurrentRow] = useState<Color[]>(beginStateRow);
 
 	const fillViewBoard = () => {
 		const boardList = [];
@@ -21,7 +22,7 @@ const Board = () => {
 						key= {i}
 						rowId= {i}
 						board= {board}
-						colorPeg= {updateCurrentRow}
+						colorPeg= {colorPeg}
 						pegsInRow= {pegsInRow}
 					/>
 				);
@@ -42,19 +43,20 @@ const Board = () => {
 		)
 	};
 
-	const selectCurrentColor= (color: Color) => {
-		setCurrentColor(color);
-	};
-
-	const updateCurrentRow= (rowId: number, pegId: number) => {
-		if (rowId === chance) {
+	const colorPeg= (rowId: number, pegId: number) => {
+		console.log('klik');
+		if (rowId === turn) {
 			console.log(pegId);
 			const newCurrentRow: Color[] = currentRow;
 			newCurrentRow[pegId] = currentColor;
 			setCurrentRow(newCurrentRow);
 		}
-	}
-	
+	};
+
+	const selectCurrentColor= (color: Color) => {
+		setCurrentColor(color);
+	};
+
 	function showAvailableColors() {
 		return (
 			<Fragment>
@@ -78,7 +80,7 @@ const Board = () => {
 			boardList.push(row);
 		}
 		setBoard(boardList);
-	}
+	};
 
 	useEffect(() => {
 		console.log(currentColor);
@@ -86,7 +88,7 @@ const Board = () => {
 
 	useEffect(() => {
 		fillViewBoard();
-		setCurrentRow([]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [board]);
 
 	useEffect(() => {
