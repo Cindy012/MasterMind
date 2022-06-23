@@ -4,12 +4,12 @@ import Peg from './Peg';
 import Row from './Row';
 
 const Board = () => {
-	// const chance = 0;
+	let chance = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
 	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
 	const [board, setBoard] = useState<Color[][]>();
-	// const [currentRow, setCurrentRow] = useState<Color[]>(new Array(4));
+	const [currentRow, setCurrentRow] = useState<Color[]>(new Array(4));
 
 	const fillRows = () => {
 		const rowsList = [];
@@ -17,11 +17,17 @@ const Board = () => {
 		for (let i = 0; i < totalRows; i++) {
 			if (board || typeof board !== 'undefined') {
 				rowsList.push(
-					<Row key={i} rowId={i} board={board} />,
+					<Row 
+						key= {i}
+						rowId= {i}
+						board= {board}
+						colorPeg= {updateCurrentRow}
+						pegsInRow= {pegsInRow}
+					/>
 				);
 			} else {
 				rowsList.push(
-					<Row key={i} rowId={i} />,
+					<Row key={i} rowId={i} pegsInRow= {pegsInRow}/>,
 				);
 			}
 		}
@@ -40,11 +46,14 @@ const Board = () => {
 		setCurrentColor(color);
 	};
 
-	// const updateCurrentRow= (pegId: number, color: Color) => {
-	// 	const newCurrentRow: Color[] = currentRow;
-	// 	newCurrentRow[pegId] = color;
-	// 	setCurrentRow(newCurrentRow);
-	// }
+	const updateCurrentRow= (rowId: number, pegId: number) => {
+		if (rowId === chance) {
+			console.log(pegId);
+			const newCurrentRow: Color[] = currentRow;
+			newCurrentRow[pegId] = currentColor;
+			setCurrentRow(newCurrentRow);
+		}
+	}
 	
 	function showAvailableColors() {
 		return (
@@ -68,7 +77,7 @@ const Board = () => {
 			}
 			boardList.push(row);
 		}
-		return boardList;
+		setBoard(boardList);
 	}
 
 	useEffect(() => {
@@ -77,13 +86,15 @@ const Board = () => {
 
 	// useEffect(() => {
 	// 	fillRows();
-	//  setCurrentRow([]);
-    // }, [board]);
+	// 	setCurrentRow([]);
+	// }, [board]);
 
 	useEffect(() => {
-		const newBoard = initializeBoard();
-		// console.log(newBoard); 	
-		setBoard(newBoard);
+		console.log(currentRow);
+    }, [currentRow]);
+
+	useEffect(() => {
+		initializeBoard();
     }, []);
 
 	return (

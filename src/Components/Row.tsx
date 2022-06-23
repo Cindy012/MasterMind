@@ -4,30 +4,28 @@ import Peg from "./Peg";
 interface RowProps {
     board?: Color[][];
     rowId: number;
+    pegsInRow: number;
+    colorPeg?: (rowId: number, pegId: number) => void;
 }
-const Row:React.FC<RowProps> = ({ rowId, board }) => {
-    const Pegs = 4;
+const Row:React.FC<RowProps> = ({ rowId, board, pegsInRow, colorPeg }) => {
 
     const fillRow = () => {
         const rowsList = [];
-
-        for (let i = 0; i < Pegs; i++) {
-            // console.log(newBoard);
-            // newBoard[0][0] = Color.Red;
-            // console.log(newBoard);
+        for (let i = 0; i < pegsInRow; i++) {
             if (board || typeof board !== 'undefined') {
-                if(board[rowId][i]) {
+                if(board[rowId][i] !== Color.White) {
                     rowsList.push(<Peg 
-                        key={i}
-                        rowId={rowId}
-                        pegId={i}
+                        key= {i}
+                        rowId= {rowId}
+                        pegId= {i}
                         className= {board[rowId][i]}
+                        colorPeg= {colorPeg}
                     />);
                 } else {
                     rowsList.push(<Peg 
-                        key={i}
-                        rowId={rowId}
-                        pegId={i}
+                        key= {i}
+                        rowId= {rowId}
+                        pegId= {i}
                     />);
                 }
             }
