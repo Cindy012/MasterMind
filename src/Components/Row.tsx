@@ -8,7 +8,6 @@ interface RowProps {
     colorPeg?: (rowId: number, pegId: number) => void;
 }
 const Row:React.FC<RowProps> = ({ rowId, board, pegsInRow, colorPeg }) => {
-
     const fillRow = () => {
         const rowsList = [];
         for (let i = 0; i < pegsInRow; i++) {
@@ -19,13 +18,13 @@ const Row:React.FC<RowProps> = ({ rowId, board, pegsInRow, colorPeg }) => {
                         rowId= {rowId}
                         pegId= {i}
                         className= {board[rowId][i]}
-                        colorPeg= {colorPeg}
                     />);
                 } else {
                     rowsList.push(<Peg 
                         key= {i}
                         rowId= {rowId}
                         pegId= {i}
+                        colorPeg= {colorPeg}
                     />);
                 }
             }
