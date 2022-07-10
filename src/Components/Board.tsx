@@ -28,7 +28,7 @@ const Board = () => {
 				);
 			} else {
 				boardList.push(
-					<Row key={i} rowId={i} pegsInRow= {pegsInRow}/>,
+					<Row key={i} rowId={i} pegsInRow= {pegsInRow} />,
 				);
 			}
 		}
@@ -63,9 +63,9 @@ const Board = () => {
 				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Orange} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Green} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.LightBlue} selectColor= {selectCurrentColor}/>
-				<Peg className= {Color.Blue} selectColor= {selectCurrentColor}/>
-				<Peg className= {Color.Purple} selectColor= {selectCurrentColor}/>
+				<Peg className= {Color.LightBlue} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Blue} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Purple} selectColor= {selectCurrentColor} />
 			</Fragment>
 		)
 	};
