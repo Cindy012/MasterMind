@@ -10,14 +10,14 @@ interface PegProps {
 
 const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg }) => {
     const colorSelectedPeg = (rowId?: number, pegId?: number) => {
-        if ((!rowId || typeof rowId === 'undefined') || (!pegId || typeof pegId === 'undefined') || (!colorPeg || typeof colorPeg === 'undefined')) {
+        if (typeof rowId !== 'number' || typeof pegId !== 'number' || !colorPeg || typeof colorPeg === 'undefined') {
             return;
         }
         colorPeg(rowId, pegId);
     };
 
     const selectedColor = (color?: Color) => {
-		if (!color || typeof color === 'undefined' || (!selectColor || typeof color === 'undefined')) {
+		if (!color || typeof color === 'undefined' || !selectColor || typeof color === 'undefined') {
             return;
         }
         selectColor(color);
