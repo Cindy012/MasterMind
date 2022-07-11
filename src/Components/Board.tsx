@@ -7,11 +7,10 @@ const Board = () => {
 	let turn = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
-	const beginStateRow: Color[] = [Color.White, Color.White, Color.White, Color.White];
-	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
 	const [board, setBoard] = useState<Color[][]>();
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
-	const [currentRow, setCurrentRow] = useState<Color[]>(beginStateRow);
+	const [currentColor, setCurrentColor] = useState<Color>();
+	const [currentRow, setCurrentRow] = useState<Color[]>([Color.White, Color.White, Color.White, Color.White]);
 
 	const fillViewBoard = () => {
 		const boardList = [];
@@ -43,19 +42,16 @@ const Board = () => {
 		)
 	};
 
-	const colorPeg= (rowId: number, pegId: number) => {
-		console.log('klik');
-		if (rowId === turn) {
-			console.log(pegId);
-			const newCurrentRow: Color[] = currentRow;
-			newCurrentRow[pegId] = currentColor;
-			setCurrentRow(newCurrentRow);
+	const colorPeg = (rowId: number, pegId: number) => {
+		if (rowId === turn && currentColor) {
+			console.log(currentColor); // won't change when selecting color
+			const newCurrentRow: Color[] = Object.assign([], currentRow);
+			newCurrentRow[pegId] = currentColor; // is each time undefined
+			setCurrentRow(newCurrentRow);// Row will override current Row, prev choices are gone.
 		}
 	};
 
-	const selectCurrentColor= (color: Color) => {
-		setCurrentColor(color);
-	};
+	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
 	function showAvailableColors() {
 		return (
@@ -101,15 +97,9 @@ const Board = () => {
 
 	return (
 		<div id="board-content">
-			<div id="board">
-				{ boardView }
-			</div>
-			<div id="board-clue">
-				{ showClues() }
-			</div>
-			<div id='color-peg-options'>
-				{ showAvailableColors() }
-			</div>
+			<div id="board">{ boardView }</div>
+			<div id="board-clue">{ showClues() }</div>
+			<div id='color-peg-options'>{ showAvailableColors() }</div>
 		</div>
 	);
 };
