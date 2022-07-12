@@ -7,17 +7,18 @@ const Board = () => {
 	let turn = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
+	const initialRow: Color[] = [Color.White, Color.White, Color.White, Color.White];
 	const [board, setBoard] = useState<Color[][]>();
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
-	const [currentColor, setCurrentColor] = useState<Color>();
-	const [currentRow, setCurrentRow] = useState<Color[]>([Color.White, Color.White, Color.White, Color.White]);
+	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
+	const [currentRow, setCurrentRow] = useState<Color[]>(initialRow);
 
 	const fillViewBoard = () => {
 		const boardList = [];
 		for (let i = 0; i < totalRows; i++) {
 			if (board || typeof board !== 'undefined') {
 				boardList.push(
-					<Row 
+					<Row
 						key= {i}
 						rowId= {i}
 						board= {board}
@@ -43,10 +44,16 @@ const Board = () => {
 	};
 
 	const colorPeg = (rowId: number, pegId: number) => {
-		if (rowId === turn && currentColor) {
-			console.log(currentColor); // won't change when selecting color
-			const newCurrentRow: Color[] = Object.assign([], currentRow);
-			newCurrentRow[pegId] = currentColor; // is each time undefined
+		if (rowId === turn) { // if (rowId === turn && currentColor) {
+			let newCurrentRow: Color[] = [];
+			newCurrentRow = currentRow.map((peg, index) => { 
+				if (index === pegId) {
+					return newCurrentRow[index] = Color.Red; // currentColor;
+				} else {
+					return newCurrentRow[index] = peg;
+				}
+			});
+			console.log(newCurrentRow);
 			setCurrentRow(newCurrentRow);// Row will override current Row, prev choices are gone.
 		}
 	};
