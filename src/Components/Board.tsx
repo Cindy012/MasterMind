@@ -48,12 +48,11 @@ const Board = () => {
 			let newCurrentRow: Color[] = [];
 			newCurrentRow = currentRow.map((peg, index) => { 
 				if (index === pegId) {
-					return newCurrentRow[index] = Color.Red; // currentColor;
+					return Color.Red; // currentColor;
 				} else {
-					return newCurrentRow[index] = peg;
+					return peg;
 				}
 			});
-			console.log(newCurrentRow);
 			setCurrentRow(newCurrentRow);// Row will override current Row, prev choices are gone.
 		}
 	};
