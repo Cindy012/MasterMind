@@ -1,4 +1,4 @@
-import { Color } from "../Color";
+import { Color } from "./Color";
 import Peg from "./Peg";
 
 interface RowProps {
@@ -35,9 +35,9 @@ const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg }) => {
     };
 
     return (
-    <div className="row">
-        { fillRow() }
-    </div>
+        <div className="row">
+            { fillRow() }
+        </div>
     );
 }
 

@@ -1,4 +1,4 @@
-import { Color } from "../Color";
+import { Color } from "./Color";
 
 interface PegProps {
     rowId?: number;
@@ -29,8 +29,7 @@ const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg
             onClick={() => { 
                 className ? selectedColor(className) : colorSelectedPeg(rowId, pegId); 
             }}
-        >
-        </button>
+        />
     );
 };
   

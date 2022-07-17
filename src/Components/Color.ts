@@ -7,4 +7,4 @@ export enum Color {
     Purple = "purple",
     Black = "black",
     White = "white"
-}
+};

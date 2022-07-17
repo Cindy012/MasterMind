@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Color } from '../Color';
+import { Color } from './Color';
+import { initializeBoard } from './BoardInitializer';
 import Peg from './Peg';
 import Row from './Row';
 
@@ -7,25 +8,13 @@ const Board = () => {
 	let turn = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
-	const [board, setBoard] = useState<Color[][]>();
+	const [board, setBoard] = useState<Color[][]>(initializeBoard());
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [currentColor, setCurrentColor] = useState<Color>();
 
-	function initializeBoard() {
-		let boardList:Array<Color>[] = [];
-		for(let i = 0; i < totalRows; i++) {
-			let row = new Array<Color>();
-			for(let j = 0; j < pegsInRow; j++) {
-				row.push(Color.White);
-			}
-			boardList.push(row);
-		}
-		setBoard(boardList);
-	};
-
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
-	function showAvailableColors() {
+	function showColorPegOptions() {
 		return (
 			<Fragment>
 				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
@@ -39,6 +28,7 @@ const Board = () => {
 	};
 
 	const colorPeg = (rowId: number, pegId: number) => {
+		console.log('hi');
 		if (rowId === turn && board && currentColor) { // currentColor is undefined
 			let newBoard = board;
 			newBoard[rowId][pegId] = currentColor;
@@ -82,18 +72,13 @@ const Board = () => {
 
 	useEffect(() => {
 		fillViewBoard();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [board]);
-
-	useEffect(() => {
-		initializeBoard();
-    }, []);
 
 	return (
 		<div id="board-content">
 			<div id="board">{ boardView }</div>
 			<div id="board-clue">{ showClues() }</div>
-			<div id='color-peg-options'>{ showAvailableColors() }</div>
+			<div id='color-peg-options'>{ showColorPegOptions() }</div>
 		</div>
 	);
 };
