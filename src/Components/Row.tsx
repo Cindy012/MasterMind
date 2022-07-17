@@ -14,20 +14,22 @@ const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg }) => {
             if (row) {
                 if (row[i] !== Color.White) {
                     rowsList.push(
-                    <Peg 
-                        key= {i}
-                        rowId= {rowId}
-                        pegId= {i}
-                        className= {row[i]}
-                    />);
+                        <Peg 
+                            key= {i}
+                            rowId= {rowId}
+                            pegId= {i}
+                            className= {row[i]}
+                        />
+                    );
                 } else {
                     rowsList.push(
-                    <Peg 
-                        key= {i}
-                        rowId= {rowId}
-                        pegId= {i}
-                        colorPeg= {colorPeg}
-                    />);
+                        <Peg 
+                            key= {i}
+                            rowId= {rowId}
+                            pegId= {i}
+                            colorPeg= {colorPeg}
+                        />
+                    );
                 }
             }
         }

@@ -57,10 +57,6 @@ const Board = () => {
 						pegsInRow= {pegsInRow}
 					/>
 				);
-			} else {
-				boardList.push(
-					<Row key={i} rowId={i} pegsInRow= {pegsInRow} />,
-				);
 			}
 		}
       	setBoardView(boardList);
