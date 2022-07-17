@@ -62,7 +62,7 @@ const Board = () => {
 					<Row
 						key= {i}
 						rowId= {i}
-						board= {board}
+						row= {board[i]}
 						colorPeg= {colorPeg}
 						pegsInRow= {pegsInRow}
 					/>
@@ -82,6 +82,7 @@ const Board = () => {
 
 	useEffect(() => {
 		fillViewBoard();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [board]);
 
 	useEffect(() => {

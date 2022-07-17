@@ -2,25 +2,27 @@ import { Color } from "../Color";
 import Peg from "./Peg";
 
 interface RowProps {
-    board?: Color[][];
+    row?: Color[];
     rowId: number;
     pegsInRow: number;
     colorPeg?: (rowId: number, pegId: number) => void;
 }
-const Row:React.FC<RowProps> = ({ rowId, board, pegsInRow, colorPeg }) => {
+const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg }) => {
     const fillRow = () => {
         const rowsList = [];
         for (let i = 0; i < pegsInRow; i++) {
-            if (board || typeof board !== 'undefined') {
-                if(board[rowId][i] !== Color.White) {
-                    rowsList.push(<Peg 
+            if (row) {
+                if (row[i] !== Color.White) {
+                    rowsList.push(
+                    <Peg 
                         key= {i}
                         rowId= {rowId}
                         pegId= {i}
-                        className= {board[rowId][i]}
+                        className= {row[i]}
                     />);
                 } else {
-                    rowsList.push(<Peg 
+                    rowsList.push(
+                    <Peg 
                         key= {i}
                         rowId= {rowId}
                         pegId= {i}
