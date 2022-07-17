@@ -7,11 +7,9 @@ const Board = () => {
 	let turn = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
-	const initialRow: Color[] = [Color.White, Color.White, Color.White, Color.White];
 	const [board, setBoard] = useState<Color[][]>();
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
-	const [currentColor, setCurrentColor] = useState<Color>(Color.White);
-	const [currentRow, setCurrentRow] = useState<Color[]>(initialRow);
+	const [currentColor, setCurrentColor] = useState<Color>();
 
 	const fillViewBoard = () => {
 		const boardList = [];
@@ -44,16 +42,10 @@ const Board = () => {
 	};
 
 	const colorPeg = (rowId: number, pegId: number) => {
-		if (rowId === turn) { // if (rowId === turn && currentColor) {
-			let newCurrentRow: Color[] = [];
-			newCurrentRow = currentRow.map((peg, index) => { 
-				if (index === pegId) {
-					return Color.Red; // currentColor;
-				} else {
-					return peg;
-				}
-			});
-			setCurrentRow(newCurrentRow);// Row will override current Row, prev choices are gone.
+		if (rowId === turn && board && currentColor) { // currentColor is undefined
+			let newBoard = board;
+			newBoard[rowId][pegId] = currentColor;
+			setBoard(newBoard);
 		}
 	};
 
@@ -92,10 +84,6 @@ const Board = () => {
 		fillViewBoard();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [board]);
-
-	useEffect(() => {
-		console.log(currentRow);
-    }, [currentRow]);
 
 	useEffect(() => {
 		initializeBoard();
