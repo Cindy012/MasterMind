@@ -28,7 +28,6 @@ const Board = () => {
 	};
 
 	const colorPeg = (rowId: number, pegId: number) => {
-		console.log('hi');
 		if (rowId === turn && board && currentColor) { // currentColor is undefined
 			let newBoard = board;
 			newBoard[rowId][pegId] = currentColor;
@@ -66,6 +65,7 @@ const Board = () => {
 		console.log(currentColor);
     }, [currentColor]);
 
+	// It won't reload
 	useEffect(() => {
 		fillViewBoard();
 	}, [board]);
