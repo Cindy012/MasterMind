@@ -27,14 +27,6 @@ const Board = () => {
 		)
 	};
 
-	const colorPeg = (rowId: number, pegId: number) => {
-		if (rowId === turn && board && currentColor) { // currentColor is undefined
-			let newBoard = board;
-			newBoard[rowId][pegId] = currentColor;
-			setBoard(newBoard);
-		}
-	};
-
 	function showClues() {
 		return (
 			<Fragment>
@@ -43,32 +35,39 @@ const Board = () => {
 		)
 	};
 
-	const fillViewBoard = () => {
-		const boardList = [];
-		for (let i = 0; i < totalRows; i++) {
-			if (board || typeof board !== 'undefined') {
-				boardList.push(
-					<Row
-						key= {i}
-						rowId= {i}
-						row= {board[i]}
-						colorPeg= {colorPeg}
-						pegsInRow= {pegsInRow}
-					/>
-				);
-			}
-		}
-      	setBoardView(boardList);
-	};
-
 	useEffect(() => {
 		console.log(currentColor);
     }, [currentColor]);
 
-	// It won't reload
 	useEffect(() => {
+		const colorPeg = (rowId: number, pegId: number) => {
+			if (rowId === turn && board && currentColor) {
+				let newBoard = board;
+				newBoard[rowId][pegId] = currentColor;
+				setBoard(newBoard);
+			}
+		};
+		
+		const fillViewBoard = () => {
+			const boardList = [];
+			if (board || typeof board !== 'undefined') {
+				for (let i = 0; i < totalRows; i++) {
+					boardList.push(
+						<Row
+							key= {i}
+							rowId= {i}
+							row= {board[i]}
+							colorPeg= {colorPeg}
+							pegsInRow= {pegsInRow}
+						/>
+					);
+				}
+				setBoardView(boardList);
+			}
+		};
+
 		fillViewBoard();
-	}, [board]);
+	}, [board, currentColor, turn]);
 
 	return (
 		<div id="board-content">

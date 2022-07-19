@@ -17,7 +17,7 @@ const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg
     };
 
     const selectedColor = (color?: Color) => {
-		if (!color || typeof color === 'undefined' || !selectColor || typeof color === 'undefined') {
+		if (!color || typeof color === 'undefined' || !selectColor) {
             return;
         }
         selectColor(color);
@@ -27,7 +27,7 @@ const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg
         <button 
             className={ className ? `peg ${className}` : 'peg' } 
             onClick={() => { 
-                className ? selectedColor(className) : colorSelectedPeg(rowId, pegId); 
+                className && !colorPeg ? selectedColor(className) : colorSelectedPeg(rowId, pegId); 
             }}
         />
     );
