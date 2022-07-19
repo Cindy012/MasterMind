@@ -1,43 +1,35 @@
-// import React, { useEffect, useState } from 'react';
+import { Color } from "./Color";
 import Peg from "./Peg";
 
 interface RowProps {
+    row?: Color[];
     rowId: number;
+    pegsInRow: number;
+    colorPeg?: (rowId: number, pegId: number) => void;
 }
-const Row:React.FC<RowProps> = ( {rowId}) => {
-    const Pegs = 4;
-    //   const [row, setRow] = useState<JSX.Element[]>();
-
-    //   useEffect(() => {
-    //     fillRow();
-    //   }, []);
-
-    //   const fillRow = () => {
-    //     const newRow = [];
-    //       let i = 0;
-    //       while(i < Pegs) {
-    //         newRow.push(<Peg />);
-    //       }
-
-    //       setRow(newRow);
-    //   }
-
+const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg }) => {
     const fillRow = () => {
         const rowsList = [];
-
-        for (let i = 0; i < Pegs; i++) {
-            rowsList.push(
-            <Peg key={i} rowId={ rowId } pegId={i}/>
-            );
+        for (let i = 0; i < pegsInRow; i++) {
+            if (row) {
+                rowsList.push(
+                    <Peg
+                        key= {i}
+                        rowId= {rowId}
+                        pegId= {i}
+                        className= {row[i]}
+                        colorPeg= {colorPeg}
+                    />
+                );
+            }
         }
-
         return rowsList;
     };
 
     return (
-    <div className="row">
-        { fillRow() }
-    </div>
+        <div className="row">
+            { fillRow() }
+        </div>
     );
 }
 
