@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Color } from './Color';
 import { initializeBoard } from './BoardInitializer';
+import { createCode } from './Code';
 import Peg from './Peg';
 import Row from './Row';
 
@@ -12,6 +13,7 @@ const Board = () => {
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [boardBool, setBoardBool] = useState<boolean>(false);
+	const [code] = useState<Color[]>(createCode()); // , setNewCode
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -34,6 +36,30 @@ const Board = () => {
 				{/* 4 little clue pegs */}
 			</Fragment>
 		)
+	};
+
+	// This will be executed when user selected all pegs in row. Otherwise the button is inactive
+	const checkCode = () => {
+		code.forEach((color, index) => {
+			if (color === board[turn][index]) {
+				console.log('yes');
+			} else if (colorContainsInCode(board[turn][index])){ 
+				// Now "could be" is even when the color of the user code exist multiple times => could give a wrong indicator to user 
+				console.log('could be');
+			} else {
+				console.log('no');
+			}
+		});
+	};
+
+	const colorContainsInCode = (pegColor: Color) => {
+		let result = false;
+		code.forEach(color => {
+			if (color === pegColor) {
+				result = true;
+			}
+		});
+		return result;
 	};
 
 	useEffect(() => {
@@ -77,7 +103,7 @@ const Board = () => {
 				<div id="board">{ boardView }</div>
 				<div id="board-clue">{ showClues() }</div>
 				<div id="mastermind">
-					<button className="button buttonCheck">Check</button>
+					<button className="button buttonCheck" onClick={ checkCode }>Check</button>
 					<div id="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
 			</div>
