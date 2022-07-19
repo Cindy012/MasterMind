@@ -72,11 +72,16 @@ const Board = () => {
 	}, [board, currentColor, turn, boardBool]);
 
 	return (
-		<div id="board-content">
-			<div id="board">{ boardView }</div>
-			<div id="board-clue">{ showClues() }</div>
-			<div id='color-peg-options'>{ showColorPegOptions() }</div>
-		</div>
+		<Fragment>
+			<div id="board-content">
+				<div id="board">{ boardView }</div>
+				<div id="board-clue">{ showClues() }</div>
+				<div id="mastermind">
+					<button className="button buttonCheck">Check</button>
+					<div id="color-peg-options">{ showColorPegOptions() }</div>
+				</div>
+			</div>
+		</Fragment>
 	);
 };
 
