@@ -11,6 +11,7 @@ const Board = () => {
 	const [board, setBoard] = useState<Color[][]>(initializeBoard());
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [currentColor, setCurrentColor] = useState<Color>();
+	const [boardBool, setBoardBool] = useState<boolean>(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -45,6 +46,7 @@ const Board = () => {
 				let newBoard = board;
 				newBoard[rowId][pegId] = currentColor;
 				setBoard(newBoard);
+				setBoardBool(!boardBool);
 			}
 		};
 		
@@ -67,7 +69,7 @@ const Board = () => {
 		};
 
 		fillViewBoard();
-	}, [board, currentColor, turn]);
+	}, [board, currentColor, turn, boardBool]);
 
 	return (
 		<div id="board-content">
