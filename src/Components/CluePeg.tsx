@@ -6,7 +6,7 @@ interface CluePegProps {
 
 const CluePeg:React.FC<CluePegProps> = ({ className }) => {
     return (
-        <button className={ className ? `cluepeg ${className}` : 'cluePeg' } />
+        <button className={ className ? `peg clue ${className}` : 'peg clue' } />
     );
 };
   
