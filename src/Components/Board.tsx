@@ -64,7 +64,7 @@ const Board = () => {
 			setTurn(13);
 			setShowModal(true);
 			return true;
-		} else if (board[turn] !== code && turn === 12) {
+		} else if (board[turn] !== code && turn === 11) {
 			setModalTitle('You lose!');
 			setGameStatus(2);
 			setShowModal(true);
@@ -72,9 +72,13 @@ const Board = () => {
 		return false;
 	};
 
-	function isCodeCorrect() {
-		for (var i = 0; code.length < i; i++) {
-			if (code[i] !== board[turn][i]) { return false; }
+	const isCodeCorrect = () => {
+		let i = 0;
+		while (i < pegsInRow) {
+			if (code[i] !== board[turn][i]) { 
+				return false; 
+			};
+			i++;
 		}
 		return true;
 	};
