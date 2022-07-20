@@ -7,11 +7,16 @@ interface ModalProps {
     hideCloseButton?: boolean;
     show: boolean;
     title: string;
-    playAgain?: () => void
+    resetGame: () => void
     gameStatus: number;
 }
 
-const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, playAgain, gameStatus }) => {
+const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus }) => {
+    const playAgain = () => {
+        resetGame();
+        setShowModal(false);
+    } 
+
     const renderSwitch = (state: number) => {
         switch(state) {
             case 1:
@@ -29,7 +34,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title }</h2>
                 <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
-                { playAgain ? (
+                { gameStatus !== 0 ? (
                     <button onClick={() => playAgain()}>
                         Play again!
                     </button>
