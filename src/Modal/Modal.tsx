@@ -1,4 +1,4 @@
-import './modal.scss';
+import '../scss/modal.scss';
 
 // Source: https://reactjsexample.com/video-tutorial-make-a-modal-in-reactjs/
 
