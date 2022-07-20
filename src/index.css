@@ -20,10 +20,10 @@ section {
 	display: flex;
 }
 
-#board {
+#board { 
 	border: 3px solid #000000;
 	padding: 10px;
-	margin: auto;
+	margin: 10px 0px;
 	width: 200px;
 }
 
@@ -39,12 +39,7 @@ section {
 	padding: 10px;
 	margin: auto;
 	width: 50px;
-}
-
-#board-clue div:last-child {
-	border: none;
-	margin-bottom: 0px;
-	padding-bottom: 0px;
+	margin: 10px 0px;
 }
 
 .row {  
