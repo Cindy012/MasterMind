@@ -33,15 +33,16 @@ const Board = () => {
 		)
 	};
 
-	// This will be executed when user selected all pegs in row. Otherwise the button is inactive
 	const checkCode = () => {
-		if (turn < totalRows) { 
+		if (turn < totalRows && board[turn].includes(Color.White)) {
+			console.log("error");
+		} else {
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
 					newCluesBord[turn][index] = Color.Black;
 				} else if (colorContainsInCode(board[turn][index])){ 
-					// Now "could be" is even when the color of the user code exist multiple times => could give a wrong indicator to user 
+					// Now "could be" is even when the color of the user code doesn't exist multiple times => could give a wrong indicator to user 
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
@@ -111,7 +112,6 @@ const Board = () => {
 				for (let i = 0; i < totalRows; i++) {
 					cluesBoardList.push(fillClueRow(i));
 				}
-				console.log(cluesBoardList);
 				setCluesBoardView(cluesBoardList);
 			}
 		};
