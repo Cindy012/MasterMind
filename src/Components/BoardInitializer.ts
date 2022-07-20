@@ -14,7 +14,7 @@ export function initializeBoard() {
     return boardList
 };
 
-export function initializeClueBoard() {
+export function initializeCluesBoard() {
     const totalRows = 12;
     const pegsInRow = 4;
     let boardList:Array<Color>[] = [];
