@@ -33,20 +33,17 @@ const Board = () => {
 		)
 	};
 
-	// This will be executed when user selected all pegs in row. Otherwise the button is inactive
 	const checkCode = () => {
-		if (turn < totalRows) { 
+		if (turn < totalRows && board[turn].includes(Color.White)) {
+			console.log("error");
+		} else {
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
-					console.log('yes');
-					newCluesBord[turn][index] = Color.Red;
-				} else if (colorContainsInCode(board[turn][index])){ 
-					// Now "could be" is even when the color of the user code exist multiple times => could give a wrong indicator to user 
-					console.log('could be');
 					newCluesBord[turn][index] = Color.Black;
-				} else {
-					console.log('no');
+				} else if (colorContainsInCode(board[turn][index])){ 
+					// Now "could be" is even when the color of the user code doesn't exist multiple times => could give a wrong indicator to user 
+					newCluesBord[turn][index] = Color.Red;
 				}
 			});
 			setCluesBoard(newCluesBord);
@@ -63,10 +60,6 @@ const Board = () => {
 		});
 		return result;
 	};
-
-	useEffect(() => {
-		console.log(currentColor);
-    }, [currentColor]);
 
 	useEffect(() => {
 		const colorPeg = (rowId: number, pegId: number) => {
@@ -100,6 +93,19 @@ const Board = () => {
 	}, [board, currentColor, turn, boardBool, cluesBord]);
 
 	useEffect(() => {
+		const fillClueRow = (row: number) => {
+			const clueRowList:JSX.Element[] = [];
+			if (cluesBord || typeof cluesBord !== 'undefined') {
+				for (let j = 0; j < pegsInRow; j++) {
+					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j]} />);
+				}
+			}
+
+			return (
+				<div key={row} className="cluerow">{ clueRowList }</div>
+			);
+		};
+
 		const showClues = () => {
 			const cluesBoardList:JSX.Element[] = [];
 			if (cluesBord || typeof cluesBord !== 'undefined') {
@@ -110,21 +116,7 @@ const Board = () => {
 			}
 		};
 
-		const fillClueRow = (row: number) => {
-			const clueRowList:JSX.Element[] = [];
-			if (cluesBord || typeof cluesBord !== 'undefined') {
-				for (let j = 0; j < pegsInRow; j++) {
-					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j] ? cluesBord[row][j] : Color.Black} />);
-				}
-			}
-
-			return (
-				<div key={row} className="cluerow">{ clueRowList }</div>
-			);
-		};
-
 		showClues();
-		console.log(turn);
 	}, [cluesBord, turn]);
 
 	return (
