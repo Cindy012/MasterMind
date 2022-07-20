@@ -29,10 +29,12 @@ const Board = () => {
 			<Fragment>
 				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Orange} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Yellow} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Green} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.LightBlue} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Blue} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Purple} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Rose} selectColor= {selectCurrentColor} />
 			</Fragment>
 		)
 	};

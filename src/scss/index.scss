@@ -1,10 +1,12 @@
 // scss variables
 $color-red: #e43b3b;
 $color-orange: #e48a3b;
+$color-yellow: #e4de3b;
 $color-green: #3be45d;
 $color-lightblue:  #3be4de;
 $color-blue: #3b60e4;
 $color-purple: #8d3be4;
+$color-rose: #e43b9b;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-light-grey: #e7e7e7;
@@ -103,7 +105,11 @@ section {
 	&.orange {
 		background-color: $color-orange;
 	}
-	
+
+	&.yellow {
+		background-color: $color-yellow;
+	}
+
 	&.green {
 		background-color: $color-green;
 	}
@@ -119,7 +125,11 @@ section {
 	&.purple {
 		background-color: $color-purple;
 	}
-	
+
+	&.rose {
+		background-color: $color-rose;
+	}
+
 	&.white {
 		background-color: $color-white;
 	}

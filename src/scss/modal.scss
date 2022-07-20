@@ -28,6 +28,12 @@
         transform: translateY(-100px);
         padding: 16px 20px;
     }
+    
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
 
     &.active &__content {
         opacity: 1;
@@ -47,4 +53,19 @@
             color: #000;
         }
     }
+
+    &__button {
+		padding: 10px;
+        border: none;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+        background-color: #008CBA;
+        color: #ffffff;
+	}
 }
