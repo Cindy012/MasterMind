@@ -9,5 +9,5 @@ const CluePeg:React.FC<CluePegProps> = ({ className }) => {
         <button className={ className ? `peg clue ${className}` : 'peg clue' } />
     );
 };
-  
+
 export default CluePeg;

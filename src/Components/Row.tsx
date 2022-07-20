@@ -7,6 +7,7 @@ interface RowProps {
     pegsInRow: number;
     colorPeg?: (rowId: number, pegId: number) => void;
 }
+
 const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg }) => {
     const fillRow = () => {
         const rowsList = [];
