@@ -11,7 +11,7 @@ const Board = () => {
 	const totalRows = 12;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
-	const [code] = useState<Color[]>(createCode()); // , setNewCode
+	const [code, setCode] = useState<Color[]>(createCode()); // , setNewCode
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard());
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -23,6 +23,16 @@ const Board = () => {
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
+
+	const playAgain = () => resetGame();
+
+	function resetGame() {
+		setCode(createCode);
+		setTurn(0);
+		setBoard(initializeBoard);
+		setCluesBoard(initializeCluesBoard);
+		setGameStatus(0);
+	};
 
 	function showColorPegOptions() {
 		return (
@@ -166,6 +176,7 @@ const Board = () => {
                 show={ showModal }
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
+				resetGame={ playAgain }
             	hideCloseButton
             />
 		</Fragment>
