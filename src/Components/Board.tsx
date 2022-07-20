@@ -41,7 +41,7 @@ const Board = () => {
 		if (turn < totalRows && board[turn].includes(Color.White)) {
 			setModalTitle('Not yet');
 			setShowModal(true);
-		} else {
+		} else if (turn < totalRows){
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
@@ -130,7 +130,7 @@ const Board = () => {
 				<div id="board">{ boardView }</div>
 				<div id="board-clue">{ cluesBoardView }</div>
 				<div id="mastermind">
-					<button className="button buttonCheck" onClick={ checkCode }>Check</button>
+					<button className="button buttonCheck" onClick={ () => checkCode() }>Check</button>
 					<div id="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
 			</div>
