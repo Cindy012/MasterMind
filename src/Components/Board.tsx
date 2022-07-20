@@ -19,6 +19,7 @@ const Board = () => {
 	const [boardBool, setBoardBool] = useState<boolean>(false);
 	const [showModal, setShowModal] = useState<boolean>(false);
 	const [code] = useState<Color[]>(createCode()); // , setNewCode
+	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
 
 	const [modalTitle, setModalTitle] = useState<string>('No name');
 
@@ -94,8 +95,22 @@ const Board = () => {
 			}
 		};
 
+		const checkGameStatus = () => {
+			if (board[turn] === code && turn < 12 ) {
+				setModalTitle('You win!');
+				setGameStatus(1);
+				setTurn(13);
+				setShowModal(true);
+			} else if (board[turn] !== code && turn === 12) {
+				setModalTitle('You lose!');
+				setGameStatus(2);
+				setShowModal(true);
+			}
+		}
+		checkGameStatus();
+
 		fillViewBoard();
-	}, [board, currentColor, turn, boardBool, cluesBord]);
+	}, [board, currentColor, turn, boardBool, cluesBord, code]);
 
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
@@ -138,6 +153,7 @@ const Board = () => {
 				title= { modalTitle }
                 show={ showModal }
                 setShowModal={ setShowModal }
+				gameStatus={ gameStatus }
             	hideCloseButton
             />
 		</Fragment>
