@@ -95,6 +95,38 @@ section {
 		height: 20px;
 		width: 20px;
 	}
+
+	&.red {
+		background-color: $color-red;
+	}
+	
+	&.orange {
+		background-color: $color-orange;
+	}
+	
+	&.green {
+		background-color: $color-green;
+	}
+	
+	&.lightblue {
+		background-color: $color-lightblue;
+	}
+	
+	&.blue {
+		background-color: $color-blue;
+	}
+	
+	&.purple {
+		background-color: $color-purple;
+	}
+	
+	&.white {
+		background-color: $color-white;
+	}
+	
+	&.black {
+		background-color: $color-black;
+	}
 }
 
 .button {
@@ -117,36 +149,4 @@ section {
 			padding: 13px;
 		}
 	}	
-}
-
-.red {
-	background-color: $color-red;
-}
-
-.orange {
-	background-color: $color-orange;
-}
-
-.green {
-	background-color: $color-green;
-}
-
-.lightblue {
-	background-color: $color-lightblue;
-}
-
-.blue {
-	background-color: $color-blue;
-}
-
-.purple {
-	background-color: $color-purple;
-}
-
-.white {
-	background-color: $color-white;
-}
-
-.black {
-	background-color: $color-black;
 }
