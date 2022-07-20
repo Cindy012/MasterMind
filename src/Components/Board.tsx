@@ -39,14 +39,10 @@ const Board = () => {
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
-					console.log('yes');
-					newCluesBord[turn][index] = Color.Red;
+					newCluesBord[turn][index] = Color.Black;
 				} else if (colorContainsInCode(board[turn][index])){ 
 					// Now "could be" is even when the color of the user code exist multiple times => could give a wrong indicator to user 
-					console.log('could be');
-					newCluesBord[turn][index] = Color.Black;
-				} else {
-					console.log('no');
+					newCluesBord[turn][index] = Color.Red;
 				}
 			});
 			setCluesBoard(newCluesBord);
@@ -63,10 +59,6 @@ const Board = () => {
 		});
 		return result;
 	};
-
-	useEffect(() => {
-		console.log(currentColor);
-    }, [currentColor]);
 
 	useEffect(() => {
 		const colorPeg = (rowId: number, pegId: number) => {
@@ -100,21 +92,11 @@ const Board = () => {
 	}, [board, currentColor, turn, boardBool, cluesBord]);
 
 	useEffect(() => {
-		const showClues = () => {
-			const cluesBoardList:JSX.Element[] = [];
-			if (cluesBord || typeof cluesBord !== 'undefined') {
-				for (let i = 0; i < totalRows; i++) {
-					cluesBoardList.push(fillClueRow(i));
-				}
-				setCluesBoardView(cluesBoardList);
-			}
-		};
-
 		const fillClueRow = (row: number) => {
 			const clueRowList:JSX.Element[] = [];
 			if (cluesBord || typeof cluesBord !== 'undefined') {
 				for (let j = 0; j < pegsInRow; j++) {
-					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j] ? cluesBord[row][j] : Color.Black} />);
+					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j]} />);
 				}
 			}
 
@@ -123,8 +105,18 @@ const Board = () => {
 			);
 		};
 
+		const showClues = () => {
+			const cluesBoardList:JSX.Element[] = [];
+			if (cluesBord || typeof cluesBord !== 'undefined') {
+				for (let i = 0; i < totalRows; i++) {
+					cluesBoardList.push(fillClueRow(i));
+				}
+				console.log(cluesBoardList);
+				setCluesBoardView(cluesBoardList);
+			}
+		};
+
 		showClues();
-		console.log(turn);
 	}, [cluesBord, turn]);
 
 	return (
