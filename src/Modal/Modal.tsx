@@ -11,11 +11,6 @@ interface ModalProps {
 }
 
 const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, playAgain }) => {
-    // const message = [
-    //     'hi',
-    //     'bye'
-    // ];
-
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
             <div className="modal__content">
@@ -26,7 +21,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                 }
                 <h2>{ title }</h2>
                 <p style={{ textAlign: 'justify' }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt maxime dolorem asperiores laboriosam ad delectus ea. Tempora tempore repellendus laudantium fugiat saepe mollitia eius illo possimus laborum consequuntur, tenetur neque.
+                    You did not give the code colors.
                 </p>
                 {playAgain ? (
                     <button onClick={() => setShowModal(false)}>
