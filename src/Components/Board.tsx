@@ -1,16 +1,19 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Color } from './Color';
-import { initializeBoard } from './BoardInitializer';
+import { initializeBoard, initializeCluesBoard } from './BoardInitializer';
 import { createCode } from './Code';
 import Peg from './Peg';
 import Row from './Row';
+import CluePeg from './CluePeg';
 
 const Board = () => {
-	let turn = 0;
 	const totalRows = 12;
 	const pegsInRow = 4;
 	const [board, setBoard] = useState<Color[][]>(initializeBoard());
+	const [turn, setTurn] = useState<number>(0);
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
+	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard());
+	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [boardBool, setBoardBool] = useState<boolean>(false);
 	const [code] = useState<Color[]>(createCode()); // , setNewCode
@@ -30,26 +33,25 @@ const Board = () => {
 		)
 	};
 
-	function showClues() {
-		return (
-			<Fragment>
-				{/* 4 little clue pegs */}
-			</Fragment>
-		)
-	};
-
 	// This will be executed when user selected all pegs in row. Otherwise the button is inactive
 	const checkCode = () => {
-		code.forEach((color, index) => {
-			if (color === board[turn][index]) {
-				console.log('yes');
-			} else if (colorContainsInCode(board[turn][index])){ 
-				// Now "could be" is even when the color of the user code exist multiple times => could give a wrong indicator to user 
-				console.log('could be');
-			} else {
-				console.log('no');
-			}
-		});
+		if (turn < totalRows) { 
+			let newCluesBord = cluesBord;
+			code.forEach((color, index) => {
+				if (color === board[turn][index]) {
+					console.log('yes');
+					newCluesBord[turn][index] = Color.Red;
+				} else if (colorContainsInCode(board[turn][index])){ 
+					// Now "could be" is even when the color of the user code exist multiple times => could give a wrong indicator to user 
+					console.log('could be');
+					newCluesBord[turn][index] = Color.Black;
+				} else {
+					console.log('no');
+				}
+			});
+			setCluesBoard(newCluesBord);
+			setTurn(turn + 1);
+		}
 	};
 
 	const colorContainsInCode = (pegColor: Color) => {
@@ -95,13 +97,41 @@ const Board = () => {
 		};
 
 		fillViewBoard();
-	}, [board, currentColor, turn, boardBool]);
+	}, [board, currentColor, turn, boardBool, cluesBord]);
+
+	useEffect(() => {
+		const showClues = () => {
+			const cluesBoardList:JSX.Element[] = [];
+			if (cluesBord || typeof cluesBord !== 'undefined') {
+				for (let i = 0; i < totalRows; i++) {
+					cluesBoardList.push(fillClueRow(i));
+				}
+				setCluesBoardView(cluesBoardList);
+			}
+		};
+
+		const fillClueRow = (row: number) => {
+			const clueRowList:JSX.Element[] = [];
+			if (cluesBord || typeof cluesBord !== 'undefined') {
+				for (let j = 0; j < pegsInRow; j++) {
+					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j] ? cluesBord[row][j] : Color.Black} />);
+				}
+			}
+
+			return (
+				<div key={row} className="cluerow">{ clueRowList }</div>
+			);
+		};
+
+		showClues();
+		console.log(turn);
+	}, [cluesBord, turn]);
 
 	return (
 		<Fragment>
 			<div id="board-content">
 				<div id="board">{ boardView }</div>
-				<div id="board-clue">{ showClues() }</div>
+				<div id="board-clue">{ cluesBoardView }</div>
 				<div id="mastermind">
 					<button className="button buttonCheck" onClick={ checkCode }>Check</button>
 					<div id="color-peg-options">{ showColorPegOptions() }</div>
