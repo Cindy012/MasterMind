@@ -1,0 +1,152 @@
+// scss variables
+$color-red: #e43b3b;
+$color-orange: #e48a3b;
+$color-green: #3be45d;
+$color-lightblue:  #3be4de;
+$color-blue: #3b60e4;
+$color-purple: #8d3be4;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-light-grey: #e7e7e7;
+
+$border-2: 2px solid $color-black;
+$border-3: 3px solid $color-black;
+
+body {
+	margin: auto;
+	width: 80%;
+	font-family: Verdana, sans-serif;
+}
+
+#mastermind {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 10px;
+}
+
+section {
+	padding-bottom: 5px;
+}
+
+#board-content {
+	display: flex;
+}
+
+#board { 
+	border: $border-3;
+	padding: 10px;
+	margin: 10px 0px;
+	width: 200px;
+}
+
+#board div:last-child {
+	border: none;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+#board-clue {
+	border: $border-3;
+	border-left: 0px;
+	padding: 10px;
+	margin: auto;
+	width: 50px;
+	margin: 10px 0px;
+}
+
+#color-peg-options {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: $border-3;
+	padding: 10px;
+	gap: 10px;
+}
+
+.row {  
+	display: flex;
+	gap: 10px;
+	padding: 5px 0px;
+	align-items: center;
+	justify-content: center;
+	border-bottom: $border-2;
+}
+
+.cluerow {  
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	align-items: center;
+	justify-content: center;
+	gap: 2px;
+	padding: 5px 0px;
+}
+
+.peg {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	background-color: $color-white;
+	display: inline-block;
+
+	&.clue {
+		height: 20px;
+		width: 20px;
+	}
+
+	&.red {
+		background-color: $color-red;
+	}
+	
+	&.orange {
+		background-color: $color-orange;
+	}
+	
+	&.green {
+		background-color: $color-green;
+	}
+	
+	&.lightblue {
+		background-color: $color-lightblue;
+	}
+	
+	&.blue {
+		background-color: $color-blue;
+	}
+	
+	&.purple {
+		background-color: $color-purple;
+	}
+	
+	&.white {
+		background-color: $color-white;
+	}
+	
+	&.black {
+		background-color: $color-black;
+	}
+}
+
+.button {
+	border: none;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 12px;
+
+	&.buttonCheck {
+		background-color: $color-light-grey;
+
+		&:hover {
+			border: 2px solid $color-light-grey;
+			background-color: $color-white;
+			padding: 13px;
+		}
+	}	
+}
