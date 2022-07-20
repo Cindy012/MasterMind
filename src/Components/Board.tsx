@@ -10,17 +10,17 @@ import Modal from '../Modal/Modal';
 const Board = () => {
 	const totalRows = 12;
 	const pegsInRow = 4;
-	const [board, setBoard] = useState<Color[][]>(initializeBoard());
 	const [turn, setTurn] = useState<number>(0);
+	const [code] = useState<Color[]>(createCode()); // , setNewCode
+	const [currentColor, setCurrentColor] = useState<Color>();
+	const [board, setBoard] = useState<Color[][]>(initializeBoard());
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
+	const [boardBool, setBoardBool] = useState<boolean>(false);
 	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard());
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
-	const [currentColor, setCurrentColor] = useState<Color>();
-	const [boardBool, setBoardBool] = useState<boolean>(false);
-	const [showModal, setShowModal] = useState<boolean>(false);
-	const [code] = useState<Color[]>(createCode()); // , setNewCode
-
+	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
 	const [modalTitle, setModalTitle] = useState<string>('No name');
+	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -41,19 +41,46 @@ const Board = () => {
 		if (turn < totalRows && board[turn].includes(Color.White)) {
 			setModalTitle('Not yet');
 			setShowModal(true);
-		} else {
+		} else if (turn < totalRows) {
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
 					newCluesBord[turn][index] = Color.Black;
-				} else if (colorContainsInCode(board[turn][index])){ 
+				} else if (colorContainsInCode(board[turn][index])) { 
 					// Now "could be" is even when the color of the user code doesn't exist multiple times => could give a wrong indicator to user 
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
 			setCluesBoard(newCluesBord);
-			setTurn(turn + 1);
+			let result = checkGameStatus();
+			result ? setTurn(13) : setTurn(turn + 1);
 		}
+	};
+
+	const checkGameStatus = () => {
+		if (isCodeCorrect() && turn < 12 ) {
+			setModalTitle('You win!');
+			setGameStatus(1);
+			setTurn(13);
+			setShowModal(true);
+			return true;
+		} else if (board[turn] !== code && turn === 11) {
+			setModalTitle('You lose!');
+			setGameStatus(2);
+			setShowModal(true);
+		}
+		return false;
+	};
+
+	const isCodeCorrect = () => {
+		let i = 0;
+		while (i < pegsInRow) {
+			if (code[i] !== board[turn][i]) { 
+				return false; 
+			};
+			i++;
+		}
+		return true;
 	};
 
 	const colorContainsInCode = (pegColor: Color) => {
@@ -95,7 +122,7 @@ const Board = () => {
 		};
 
 		fillViewBoard();
-	}, [board, currentColor, turn, boardBool, cluesBord]);
+	}, [board, currentColor, turn, boardBool, cluesBord, code]);
 
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
@@ -130,7 +157,7 @@ const Board = () => {
 				<div id="board">{ boardView }</div>
 				<div id="board-clue">{ cluesBoardView }</div>
 				<div id="mastermind">
-					<button className="button buttonCheck" onClick={ checkCode }>Check</button>
+					<button className="button buttonCheck" onClick={ () => checkCode() }>Check</button>
 					<div id="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
 			</div>
@@ -138,6 +165,7 @@ const Board = () => {
 				title= { modalTitle }
                 show={ showModal }
                 setShowModal={ setShowModal }
+				gameStatus={ gameStatus }
             	hideCloseButton
             />
 		</Fragment>
