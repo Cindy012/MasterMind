@@ -79,13 +79,25 @@ const Board = () => {
 			const clueBoardList:JSX.Element[] = [];
 			if (clueBoard || typeof clueBoard !== 'undefined') {
 				for (let i = 0; i < totalRows; i++) {
-					for (let j = 0; j < pegsInRow; j++) {
-						clueBoardList.push(<CluePeg className={clueBoard[i][j] ? clueBoard[i][j] : Color.Black} />);
-					}
+					clueBoardList.push(fillClueRow(i));
 				}
 				setClueBoardView(clueBoardList);
 			}
 		};
+
+		const fillClueRow = (row: number) => {
+			const clueRowList:JSX.Element[] = [];
+			if (clueBoard || typeof clueBoard !== 'undefined') {
+				for (let j = 0; j < pegsInRow; j++) {
+					clueRowList.push(<CluePeg className={clueBoard[row][j] ? clueBoard[row][j] : Color.Black} />);
+				}
+			}
+
+			return (
+				<div className="cluerow">{ clueRowList }</div>
+			);
+		};
+
 		
 		const fillViewBoard = () => {
 			const boardList = [];
