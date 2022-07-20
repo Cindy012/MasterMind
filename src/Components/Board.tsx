@@ -5,6 +5,7 @@ import { createCode } from './Code';
 import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
+import Modal from '../Modal/Modal';
 
 const Board = () => {
 	const totalRows = 12;
@@ -16,7 +17,10 @@ const Board = () => {
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [boardBool, setBoardBool] = useState<boolean>(false);
+	const [showModal, setShowModal] = useState<boolean>(false);
 	const [code] = useState<Color[]>(createCode()); // , setNewCode
+
+	const [modalTitle, setModalTitle] = useState<string>('No name');
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -35,7 +39,8 @@ const Board = () => {
 
 	const checkCode = () => {
 		if (turn < totalRows && board[turn].includes(Color.White)) {
-			console.log("error");
+			setModalTitle('Not yet');
+			setShowModal(true);
 		} else {
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
@@ -129,6 +134,12 @@ const Board = () => {
 					<div id="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
 			</div>
+            <Modal
+				title= { modalTitle }
+                show={ showModal }
+                setShowModal={ setShowModal }
+            	hideCloseButton
+            />
 		</Fragment>
 	);
 };
