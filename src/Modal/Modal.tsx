@@ -1,4 +1,5 @@
 import '../scss/modal.scss';
+import confetti from 'canvas-confetti';
 
 // Source: https://reactjsexample.com/video-tutorial-make-a-modal-in-reactjs/
 
@@ -31,6 +32,10 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                     return 'You did not give the code colors.';
             }
         }
+    };
+    
+    if (gameStatus === 2 && resetGame) {
+        confetti(); 
     };
 
     return (
