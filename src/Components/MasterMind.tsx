@@ -20,7 +20,7 @@ const MasterMind = () => {
 		<Fragment>
 			<div className="mastermind">
 				<div className="mastermind__header">
-					<h1>MasterMind</h1>
+					<h1>MASTERMIND</h1>
 					<button className="button__icon" onClick={ () => setShowModal(true) }>
 						<img className="image__icon" src={ require('../image/information.png') } alt=""/>
 					</button>
