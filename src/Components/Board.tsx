@@ -175,7 +175,7 @@ const Board = () => {
 				</div>
 			</div>
             <Modal
-				title= { modalTitle }
+				title={ modalTitle }
                 show={ showModal }
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
