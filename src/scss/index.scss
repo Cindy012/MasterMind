@@ -37,7 +37,6 @@ body {
 .board-border {
 	border: $border-3;
 	padding: 10px;
-	margin: 10px 0px;
 	height: fit-content;
 }
 
@@ -48,6 +47,10 @@ body {
 
 	&__side {
 		justify-content: flex-start;
+
+		h2 {
+			margin: 5px;
+		}
 	}
 
 	section {
@@ -58,14 +61,15 @@ body {
 		display: flex;
 	}
 
-	&__flex {
-		flex-direction: row;
+	&__header {
+		@extend .flex;
+		margin-bottom: 10px
 	}
 }
 
 .board {
 	@extend .board-border;
-	:last-child {
+	div:last-child {
 		border: none;
 		margin-bottom: 0px;
 		padding-bottom: 0px;

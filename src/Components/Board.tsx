@@ -11,7 +11,7 @@ const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
-	const [code, setCode] = useState<Color[]>(createCode()); // , setNewCode
+	const [code, setCode] = useState<Color[]>(createCode());
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
