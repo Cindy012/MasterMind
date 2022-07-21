@@ -33,10 +33,15 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
             }
         }
     };
-    
-    if (gameStatus === 2 && resetGame) {
-        confetti(); 
+
+    if (gameStatus === 1 && resetGame) {
+        confetti({
+            particleCount: 160,
+            spread: 100,
+            colors: ['#e43b3b', '#e48a3b', '#e4de3b', '#3be45d', '#3be4de', '#3b60e4', '#8d3be4', '#e43b9b']
+        });
     };
+    
 
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
