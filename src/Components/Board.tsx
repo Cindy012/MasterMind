@@ -134,7 +134,7 @@ const Board = () => {
 		};
 
 		fillViewBoard();
-	}, [board, currentColor, turn, boardBool, cluesBord, code]);
+	}, [board, boardBool, currentColor, turn]);
 
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
