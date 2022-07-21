@@ -42,7 +42,6 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
         });
     };
     
-
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
             <div className="modal__content">
