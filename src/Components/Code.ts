@@ -7,17 +7,14 @@ function randomEnum<T>(anEnum: T): T[keyof T] {
   }
 
 export function createCode(pegs: number) {
-    let code11:Color[] = [];
+    let code:Color[] = [];
     let color;
     while (pegs > 0 ) {
         color = randomEnum(Color);
         if (color.toString() !== 'Black' || color.toString() !== 'White') {
-            code11.push(color);
+            code.push(color);
             pegs--;
-        } else {
-            console.log(color);
         }
     }
-    console.log(code11);
-    return code11;
+    return code;
 };
