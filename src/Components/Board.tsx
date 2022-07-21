@@ -169,7 +169,7 @@ const Board = () => {
 				<div className="board">{ boardView }</div>
 				<div className="board-clue">{ cluesBoardView }</div>
 				<div className="mastermind__side">
-					<h2>{ turn + 1 }</h2>
+					<h2>{ turn === totalRows ? turn : turn + 1 }</h2>
 					<button className="button button__check" onClick={ () => checkCode() }>Check</button>
 					<div className="color-peg-options">{ showColorPegOptions() }</div>
 				</div>

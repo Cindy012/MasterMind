@@ -9,7 +9,7 @@ interface ModalProps {
     title: string;
     resetGame?: () => void
     gameStatus?: number;
-    content?: string;
+    content?: JSX.Element;
 }
 
 const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus, content }) => {
@@ -41,7 +41,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                 <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
                 {content ? content : null}
                 <div className="modal__footer">
-                    { gameStatus !== 0 ? (
+                    { gameStatus !== 0 && !content? (
                         <button className="modal__button" onClick={() => playAgain()}>Play again!</button>
                     ) : null }
                     <button className="modal__button" onClick={() => setShowModal(false)}>Close</button>
