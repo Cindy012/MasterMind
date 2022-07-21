@@ -70,3 +70,11 @@
         color: #ffffff;
 	}
 }
+
+@media (max-width: 550px) {
+    .modal {    
+        &__content {
+            width: 250px;
+        }
+    }
+}
