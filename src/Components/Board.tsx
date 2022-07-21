@@ -70,13 +70,13 @@ const Board = () => {
 	};
 
 	const checkGameStatus = () => {
-		if (isCodeCorrect() && turn < 12 ) {
+		if (isCodeCorrect() && turn < totalRows ) {
 			setModalTitle('You win!');
 			setGameStatus(1);
 			setTurn(13);
 			setShowModal(true);
 			return true;
-		} else if (board[turn] !== code && turn === 11) {
+		} else if (board[turn] !== code && turn === totalRows - 1) {
 			setModalTitle('You lose!');
 			setGameStatus(2);
 			setShowModal(true);
