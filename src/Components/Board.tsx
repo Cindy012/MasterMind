@@ -168,7 +168,8 @@ const Board = () => {
 			<div id="board-content">
 				<div id="board">{ boardView }</div>
 				<div id="board-clue">{ cluesBoardView }</div>
-				<div id="mastermind">
+				<div className="mastermind__side">
+					<h2>{ turn + 1 }</h2>
 					<button className="button buttonCheck" onClick={ () => checkCode() }>Check</button>
 					<div id="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
