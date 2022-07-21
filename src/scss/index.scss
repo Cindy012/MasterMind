@@ -168,5 +168,17 @@ body {
 			background-color: $color-white;
 			padding: 13px;
 		}
-	}	
+	}
+
+	&__icon {
+		border: none;
+		background-color: $color-white;
+	}
+}
+
+.image {
+	&__icon {
+		width: 20px;
+		height: 20px;
+	}
 }
