@@ -165,13 +165,13 @@ const Board = () => {
 
 	return (
 		<Fragment>
-			<div id="board-content">
-				<div id="board">{ boardView }</div>
-				<div id="board-clue">{ cluesBoardView }</div>
+			<div className="mastermind__board-content">
+				<div className="board">{ boardView }</div>
+				<div className="board-clue">{ cluesBoardView }</div>
 				<div className="mastermind__side">
 					<h2>{ turn + 1 }</h2>
 					<button className="button buttonCheck" onClick={ () => checkCode() }>Check</button>
-					<div id="color-peg-options">{ showColorPegOptions() }</div>
+					<div className="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
 			</div>
             <Modal

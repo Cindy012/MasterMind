@@ -5,7 +5,7 @@ const MasterMind = () => {
   
 	return (
 		<div className="mastermind">
-			<h1 className="top">MasterMind</h1>
+			<h1>MasterMind</h1>
 			<section>{ textInfo }</section>
 			<Board />
 		</div>
