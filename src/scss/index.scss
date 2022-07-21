@@ -47,8 +47,6 @@ body {
 	border: $border-3;
 	padding: 10px;
 	margin: 10px 0px;
-	width: 200px; 
-
 }
 
 .board div:last-child {
@@ -160,8 +158,9 @@ body {
 	cursor: pointer;
 	border-radius: 12px;
 
-	&.buttonCheck {
+	&__check {
 		background-color: $color-light-grey;
+		margin: 10px;
 
 		&:hover {
 			border: 2px solid $color-light-grey;
