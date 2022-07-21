@@ -8,7 +8,7 @@ import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
 
 const Board = () => {
-	const totalRows = 10;
+	const totalRows = 8;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode()); // , setNewCode

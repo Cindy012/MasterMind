@@ -31,7 +31,6 @@ body {
 
 	&__side {
 		justify-content: flex-start;
-		margin-left: 10px;
 	}
 
 	section {
@@ -47,6 +46,7 @@ body {
 	border: $border-3;
 	padding: 10px;
 	margin: 10px 0px;
+	height: fit-content;
 }
 
 .board div:last-child {
@@ -59,9 +59,9 @@ body {
 	border: $border-3;
 	border-left: 0px;
 	padding: 10px;
-	margin: auto;
 	width: 50px;
 	margin: 10px 0px;
+	height: fit-content;
 }
 
 .color-peg-options {
@@ -71,13 +71,14 @@ body {
 	justify-content: center;
 	border: $border-3;
 	padding: 10px;
+	margin: 0px 10px;
 	gap: 10px;
 }
 
 .row {  
 	display: flex;
 	gap: 10px;
-	padding: 5px 0px;
+	padding: 6px 0px;
 	align-items: center;
 	justify-content: center;
 	border-bottom: $border-2;
@@ -88,7 +89,7 @@ body {
 	grid-template-columns: repeat(2, 1fr);
 	align-items: center;
 	justify-content: center;
-	gap: 2px;
+	gap: 3px;
 	padding: 5px 0px;
 }
 
