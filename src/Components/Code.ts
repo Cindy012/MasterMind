@@ -11,7 +11,7 @@ export function createCode(pegs: number) {
     let color;
     while (pegs > 0 ) {
         color = randomEnum(Color);
-        if (color.toString() !== 'black' || color.toString() !== 'white') { // if stmt is not yet done
+        if (color !== Color.Black && color !== Color.White) {
             code.push(color);
             pegs--;
         }

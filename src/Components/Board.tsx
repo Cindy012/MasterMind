@@ -58,8 +58,7 @@ const Board = () => {
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
 					newCluesBord[turn][index] = Color.Black;
-				} else if (colorContainsInCode(board[turn][index])) { 
-					// Now "could be" is even when the color of the user code doesn't exist multiple times => could give a wrong indicator to user 
+				} else if (colorContainsInCode(board[turn][index])) {
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
