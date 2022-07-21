@@ -1,8 +1,9 @@
 import { Color } from "./Color";
 
+const totalRows = 12;
+const pegsInRow = 4;
+
 export function initializeBoard() {
-    const totalRows = 12;
-    const pegsInRow = 4;
     let boardList:Array<Color>[] = [];
     for (let i = 0; i < totalRows; i++) {
         let row = new Array<Color>();
@@ -11,12 +12,10 @@ export function initializeBoard() {
         }
         boardList.push(row);
     }
-    return boardList
+    return boardList;
 };
 
 export function initializeCluesBoard() {
-    const totalRows = 12;
-    const pegsInRow = 4;
     let boardList:Array<Color>[] = [];
     for (let i = 0; i < totalRows; i++) {
         let row = new Array<Color>();
@@ -25,5 +24,5 @@ export function initializeCluesBoard() {
         }
         boardList.push(row);
     }
-    return boardList
+    return boardList;
 };
