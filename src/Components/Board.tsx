@@ -11,7 +11,7 @@ const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
-	const [code, setCode] = useState<Color[]>(createCode());
+	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -26,8 +26,8 @@ const Board = () => {
 
 	const playAgain = () => resetGame();
 
-	function resetGame() {
-		setCode(createCode);
+	const resetGame = () => {
+		setCode(createCode(pegsInRow));
 		setTurn(0);
 		setBoard(initializeBoard(totalRows, pegsInRow));
 		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
@@ -58,8 +58,7 @@ const Board = () => {
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
 					newCluesBord[turn][index] = Color.Black;
-				} else if (colorContainsInCode(board[turn][index])) { 
-					// Now "could be" is even when the color of the user code doesn't exist multiple times => could give a wrong indicator to user 
+				} else if (colorContainsInCode(board[turn][index])) {
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
@@ -134,7 +133,7 @@ const Board = () => {
 		};
 
 		fillViewBoard();
-	}, [board, currentColor, turn, boardBool, cluesBord, code]);
+	}, [board, boardBool, currentColor, turn]);
 
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
@@ -175,7 +174,7 @@ const Board = () => {
 				</div>
 			</div>
             <Modal
-				title= { modalTitle }
+				title={ modalTitle }
                 show={ showModal }
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
