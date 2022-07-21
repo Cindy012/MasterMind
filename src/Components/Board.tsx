@@ -11,7 +11,7 @@ const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
-	const [code, setCode] = useState<Color[]>(createCode());
+	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -26,8 +26,8 @@ const Board = () => {
 
 	const playAgain = () => resetGame();
 
-	function resetGame() {
-		setCode(createCode);
+	const resetGame = () => {
+		setCode(createCode(pegsInRow));
 		setTurn(0);
 		setBoard(initializeBoard(totalRows, pegsInRow));
 		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
