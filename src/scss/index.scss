@@ -21,16 +21,36 @@ body {
 	font-family: Verdana, sans-serif;
 }
 
-.mastermind {
+.flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex-column {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+
+.board-border {
+	border: $border-3;
+	padding: 10px;
+	height: fit-content;
+}
+
+.mastermind {
+	@extend .flex-column;
 	padding-bottom: 10px;
 	text-align: center;
 
 	&__side {
 		justify-content: flex-start;
+
+		h2 {
+			margin: 5px;
+		}
 	}
 
 	section {
@@ -40,35 +60,30 @@ body {
 	&__board-content {
 		display: flex;
 	}
+
+	&__header {
+		@extend .flex;
+		margin-bottom: 10px
+	}
 }
 
-.board { 
-	border: $border-3;
-	padding: 10px;
-	margin: 10px 0px;
-	height: fit-content;
-}
-
-.board div:last-child {
-	border: none;
-	margin-bottom: 0px;
-	padding-bottom: 0px;
+.board {
+	@extend .board-border;
+	div:last-child {
+		border: none;
+		margin-bottom: 0px;
+		padding-bottom: 0px;
+	}
 }
 
 .board-clue {
-	border: $border-3;
+	@extend .board-border;
 	border-left: 0px;
-	padding: 10px;
 	width: 50px;
-	margin: 10px 0px;
-	height: fit-content;
 }
 
 .color-peg-options {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	@extend .flex-column;
 	border: $border-3;
 	padding: 10px;
 	margin: 0px 10px;
@@ -76,11 +91,9 @@ body {
 }
 
 .row {  
-	display: flex;
+	@extend .flex;
 	gap: 10px;
 	padding: 6px 0px;
-	align-items: center;
-	justify-content: center;
 	border-bottom: $border-2;
 }
 
@@ -168,5 +181,17 @@ body {
 			background-color: $color-white;
 			padding: 13px;
 		}
-	}	
+	}
+
+	&__icon {
+		border: none;
+		background-color: $color-white;
+	}
+}
+
+.image {
+	&__icon {
+		width: 20px;
+		height: 20px;
+	}
 }

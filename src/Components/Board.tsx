@@ -11,7 +11,7 @@ const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
-	const [code, setCode] = useState<Color[]>(createCode()); // , setNewCode
+	const [code, setCode] = useState<Color[]>(createCode());
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -70,13 +70,13 @@ const Board = () => {
 	};
 
 	const checkGameStatus = () => {
-		if (isCodeCorrect() && turn < 12 ) {
+		if (isCodeCorrect() && turn < totalRows ) {
 			setModalTitle('You win!');
 			setGameStatus(1);
 			setTurn(13);
 			setShowModal(true);
 			return true;
-		} else if (board[turn] !== code && turn === 11) {
+		} else if (board[turn] !== code && turn === totalRows - 1) {
 			setModalTitle('You lose!');
 			setGameStatus(2);
 			setShowModal(true);
@@ -169,7 +169,7 @@ const Board = () => {
 				<div className="board">{ boardView }</div>
 				<div className="board-clue">{ cluesBoardView }</div>
 				<div className="mastermind__side">
-					<h2>{ turn + 1 }</h2>
+					<h2>{ turn === totalRows ? turn : turn + 1 }</h2>
 					<button className="button button__check" onClick={ () => checkCode() }>Check</button>
 					<div className="color-peg-options">{ showColorPegOptions() }</div>
 				</div>

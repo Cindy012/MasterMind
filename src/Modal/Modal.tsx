@@ -7,24 +7,29 @@ interface ModalProps {
     hideCloseButton?: boolean;
     show: boolean;
     title: string;
-    resetGame: () => void
-    gameStatus: number;
+    resetGame?: () => void
+    gameStatus?: number;
+    content?: JSX.Element;
 }
 
-const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus }) => {
+const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus, content }) => {
     const playAgain = () => {
-        resetGame();
-        setShowModal(false);
+        if (resetGame) {
+            resetGame();
+            setShowModal(false);
+        }
     } 
 
-    const renderSwitch = (state: number) => {
-        switch(state) {
-            case 1:
-                return 'You win, play again!';
-            case 2:
-                return 'You lose, next time better!';
-            default:
-                return 'You did not give the code colors.';
+    const renderSwitch = (state: number | undefined) => {
+        if (state !== undefined) {
+            switch(state) {
+                case 1:
+                    return 'You win, play again!';
+                case 2:
+                    return 'You lose, next time better!';
+                default:
+                    return 'You did not give the code colors.';
+            }
         }
     };
 
@@ -34,8 +39,9 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title }</h2>
                 <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
+                {content ? content : null}
                 <div className="modal__footer">
-                    { gameStatus !== 0 ? (
+                    { gameStatus !== 0 && !content? (
                         <button className="modal__button" onClick={() => playAgain()}>Play again!</button>
                     ) : null }
                     <button className="modal__button" onClick={() => setShowModal(false)}>Close</button>
