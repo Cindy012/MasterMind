@@ -34,14 +34,12 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title }</h2>
                 <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
-                { gameStatus !== 0 ? (
-                    <button onClick={() => playAgain()}>
-                        Play again!
-                    </button>
-                ) : null }
-                <button onClick={() => setShowModal(false)}>
-                    Close
-                </button>
+                <div className="modal__footer">
+                    { gameStatus !== 0 ? (
+                        <button className="modal__button" onClick={() => playAgain()}>Play again!</button>
+                    ) : null }
+                    <button className="modal__button" onClick={() => setShowModal(false)}>Close</button>
+                </div>
             </div>
         </div>
     );

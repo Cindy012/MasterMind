@@ -1,14 +1,17 @@
 // scss variables
 $color-red: #e43b3b;
 $color-orange: #e48a3b;
+$color-yellow: #e4de3b;
 $color-green: #3be45d;
 $color-lightblue:  #3be4de;
 $color-blue: #3b60e4;
 $color-purple: #8d3be4;
+$color-rose: #e43b9b;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-light-grey: #e7e7e7;
 
+$border-1: 1px solid $color-black;
 $border-2: 2px solid $color-black;
 $border-3: 3px solid $color-black;
 
@@ -18,58 +21,64 @@ body {
 	font-family: Verdana, sans-serif;
 }
 
-#mastermind {
+.mastermind {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	padding-bottom: 10px;
+	text-align: center;
+
+	&__side {
+		justify-content: flex-start;
+	}
+
+	section {
+		padding-bottom: 5px;
+	}
+
+	&__board-content {
+		display: flex;
+	}
 }
 
-section {
-	padding-bottom: 5px;
-}
-
-#board-content {
-	display: flex;
-}
-
-#board { 
+.board { 
 	border: $border-3;
 	padding: 10px;
 	margin: 10px 0px;
-	width: 200px;
+	height: fit-content;
 }
 
-#board div:last-child {
+.board div:last-child {
 	border: none;
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 }
 
-#board-clue {
+.board-clue {
 	border: $border-3;
 	border-left: 0px;
 	padding: 10px;
-	margin: auto;
 	width: 50px;
 	margin: 10px 0px;
+	height: fit-content;
 }
 
-#color-peg-options {
+.color-peg-options {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	border: $border-3;
 	padding: 10px;
+	margin: 0px 10px;
 	gap: 10px;
 }
 
 .row {  
 	display: flex;
 	gap: 10px;
-	padding: 5px 0px;
+	padding: 6px 0px;
 	align-items: center;
 	justify-content: center;
 	border-bottom: $border-2;
@@ -80,7 +89,7 @@ section {
 	grid-template-columns: repeat(2, 1fr);
 	align-items: center;
 	justify-content: center;
-	gap: 2px;
+	gap: 3px;
 	padding: 5px 0px;
 }
 
@@ -90,6 +99,7 @@ section {
 	border-radius: 50%;
 	background-color: $color-white;
 	display: inline-block;
+	border: $border-1;
 
 	&.clue {
 		height: 20px;
@@ -103,7 +113,11 @@ section {
 	&.orange {
 		background-color: $color-orange;
 	}
-	
+
+	&.yellow {
+		background-color: $color-yellow;
+	}
+
 	&.green {
 		background-color: $color-green;
 	}
@@ -119,9 +133,14 @@ section {
 	&.purple {
 		background-color: $color-purple;
 	}
-	
+
+	&.rose {
+		background-color: $color-rose;
+	}
+
 	&.white {
 		background-color: $color-white;
+		border: $border-1;
 	}
 	
 	&.black {
@@ -140,8 +159,9 @@ section {
 	cursor: pointer;
 	border-radius: 12px;
 
-	&.buttonCheck {
+	&__check {
 		background-color: $color-light-grey;
+		margin: 10px;
 
 		&:hover {
 			border: 2px solid $color-light-grey;

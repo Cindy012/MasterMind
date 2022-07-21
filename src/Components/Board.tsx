@@ -8,15 +8,15 @@ import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
 
 const Board = () => {
-	const totalRows = 12;
+	const totalRows = 8;
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode()); // , setNewCode
 	const [currentColor, setCurrentColor] = useState<Color>();
-	const [board, setBoard] = useState<Color[][]>(initializeBoard());
+	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [boardBool, setBoardBool] = useState<boolean>(false);
-	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard());
+	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard(totalRows, pegsInRow));
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
 	const [modalTitle, setModalTitle] = useState<string>('No name');
@@ -29,8 +29,8 @@ const Board = () => {
 	function resetGame() {
 		setCode(createCode);
 		setTurn(0);
-		setBoard(initializeBoard);
-		setCluesBoard(initializeCluesBoard);
+		setBoard(initializeBoard(totalRows, pegsInRow));
+		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
 		setGameStatus(0);
 	};
 
@@ -39,10 +39,12 @@ const Board = () => {
 			<Fragment>
 				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Orange} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Yellow} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Green} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.LightBlue} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Blue} selectColor= {selectCurrentColor} />
 				<Peg className= {Color.Purple} selectColor= {selectCurrentColor} />
+				<Peg className= {Color.Rose} selectColor= {selectCurrentColor} />
 			</Fragment>
 		)
 	};
@@ -163,12 +165,13 @@ const Board = () => {
 
 	return (
 		<Fragment>
-			<div id="board-content">
-				<div id="board">{ boardView }</div>
-				<div id="board-clue">{ cluesBoardView }</div>
-				<div id="mastermind">
-					<button className="button buttonCheck" onClick={ () => checkCode() }>Check</button>
-					<div id="color-peg-options">{ showColorPegOptions() }</div>
+			<div className="mastermind__board-content">
+				<div className="board">{ boardView }</div>
+				<div className="board-clue">{ cluesBoardView }</div>
+				<div className="mastermind__side">
+					<h2>{ turn + 1 }</h2>
+					<button className="button button__check" onClick={ () => checkCode() }>Check</button>
+					<div className="color-peg-options">{ showColorPegOptions() }</div>
 				</div>
 			</div>
             <Modal
