@@ -3,10 +3,8 @@ $color-red: #e43b3b;
 $color-orange: #e48a3b;
 $color-yellow: #e4de3b;
 $color-green: #3be45d;
-$color-lightblue:  #3be4de;
-$color-blue: #3b60e4;
+$color-blue: #3b81e4;
 $color-purple: #8d3be4;
-$color-rose: #e43b9b;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-light-grey: #e7e7e7;
@@ -84,9 +82,9 @@ body {
 .color-peg-options {
 	@extend .flex-column;
 	border: $border-3;
-	padding: 10px;
-	margin: 0px 10px;
-	gap: 10px;
+	padding: 11px;
+	margin: 10px 10px;
+	gap: 13px;
 }
 
 .row {  
@@ -134,20 +132,12 @@ body {
 		background-color: $color-green;
 	}
 	
-	&.lightblue {
-		background-color: $color-lightblue;
-	}
-	
 	&.blue {
 		background-color: $color-blue;
 	}
 	
 	&.purple {
 		background-color: $color-purple;
-	}
-
-	&.rose {
-		background-color: $color-rose;
 	}
 
 	&.white {
