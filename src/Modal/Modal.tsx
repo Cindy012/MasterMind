@@ -55,8 +55,8 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                 <h2>{ title ? title : 'Something went wrong' }</h2> 
                 <p>{ renderSwitch(gameStatus) }</p>
                 { content && content }
-                <div className="modal__footer">
-                    { gameStatus !== 0 && !content? (
+                <div className={ gameStatus !== 0 && !content ? `modal__footer` : `modal__footer__secondary`}>
+                    { gameStatus !== 0 && !content ? (
                         <button className="modal__button" onClick={ () => playAgain() }>Play again!</button>
                     ) : null }
                     <button className="modal__button" onClick={ () => setShowModal(false) }>Close</button>
