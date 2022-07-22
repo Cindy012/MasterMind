@@ -5,7 +5,7 @@ interface ModalProps {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     hideCloseButton?: boolean;
     show: boolean;
-    title: string;
+    title: string | undefined;
     resetGame?: () => void
     gameStatus?: number;
     content?: JSX.Element;
@@ -44,7 +44,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
         <div className={`modal ${show ? 'active' : ''}`}>
             <div className="modal__content">
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
-                <h2>{ title }</h2>
+                <h2>{ title ? title : 'Something went wrong' }</h2>
                 <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
                 {content ? content : null}
                 <div className="modal__footer">
