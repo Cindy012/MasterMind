@@ -3,7 +3,9 @@
 > Guess the code
 
 MasterMind is a game whereby the user guesses the generated code. The user wins if the code is correct within (in this case) 8 attempts.
+
 ![alt text](https://github.com/Cindy012/MasterMind/blob/42-update-readme/Mastermind-board.png "Mastermind board")
+
 ## Run this project local
 
 > Node.js is required
