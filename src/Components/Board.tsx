@@ -12,6 +12,7 @@ const Board = () => {
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
+	const [isPlaying, setIsPlaying] = useState<boolean>(true);
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -29,6 +30,7 @@ const Board = () => {
 	const resetGame = () => {
 		setCode(createCode(pegsInRow));
 		setTurn(0);
+		setIsPlaying(true);
 		setBoard(initializeBoard(totalRows, pegsInRow));
 		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
 		setGameStatus(0);
@@ -61,22 +63,24 @@ const Board = () => {
 				}
 			});
 			setCluesBoard(newCluesBord);
-			let result = checkGameStatus();
-			result ? setTurn(13) : setTurn(turn + 1);
+			if (isGameOver() && isPlaying) {
+				setIsPlaying(false);
+				setShowModal(true);
+			} else {
+				setTurn(turn + 1);
+			}
 		}
 	};
 
-	const checkGameStatus = () => {
+	const isGameOver = () => {
 		if (isCodeCorrect() && turn < totalRows ) {
 			setModalTitle('You win!');
 			setGameStatus(1);
-			setTurn(13);
-			setShowModal(true);
 			return true;
 		} else if (board[turn] !== code && turn === totalRows - 1) {
 			setModalTitle('You lose!');
 			setGameStatus(2);
-			setShowModal(true);
+			return true;
 		}
 		return false;
 	};
