@@ -10,16 +10,17 @@ import Modal from '../Modal/Modal';
 const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
+
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
-	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
-	const [boardView, setBoardView] = useState<JSX.Element[]>();
-	const [boardBool, setBoardBool] = useState<boolean>(false);
-	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard(totalRows, pegsInRow));
-	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
-	const [modalTitle, setModalTitle] = useState<string>('No name');
+	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
+	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard(totalRows, pegsInRow));
+	const [boardView, setBoardView] = useState<JSX.Element[]>();
+	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
+	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
+	const [modalTitle, setModalTitle] = useState<string>();
 	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
@@ -30,19 +31,6 @@ const Board = () => {
 		setBoard(initializeBoard(totalRows, pegsInRow));
 		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
 		setGameStatus(0);
-	};
-
-	function showColorPegOptions() {
-		return (
-			<Fragment>
-				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Orange} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Yellow} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Green} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Blue} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Purple} selectColor= {selectCurrentColor} />
-			</Fragment>
-		)
 	};
 
 	const checkCode = () => {
@@ -65,11 +53,11 @@ const Board = () => {
 
 	const isGameOver = () => {
 		if (isCodeCorrect() && turn < totalRows ) {
-			setModalTitle('You win!');
+			setModalTitle('Winner!');
 			setGameStatus(1);
 			return true;
 		} else if (board[turn] !== code && turn === totalRows - 1) {
-			setModalTitle('You lose!');
+			setModalTitle('Loser!');
 			setGameStatus(2);
 			return true;
 		}
@@ -102,8 +90,7 @@ const Board = () => {
 			if (rowId === turn && board && currentColor) {
 				let newBoard = board;
 				newBoard[rowId][pegId] = currentColor;
-				setBoard(newBoard);
-				setBoardBool(!boardBool);
+				setBoard([...newBoard]);
 			}
 		};
 		
@@ -113,27 +100,48 @@ const Board = () => {
 				for (let i = 0; i < totalRows; i++) {
 					boardList.push(
 						<Row
-							key= {i}
-							rowId= {i}
-							row= {board[i]}
-							colorPeg= {colorPeg}
-							pegsInRow= {pegsInRow}
+							key={ i }
+							rowId={ i }
+							row={ board[i] }
+							colorPeg={ colorPeg }
+							pegsInRow={ pegsInRow }
 						/>
 					);
 				}
-				setBoardView(boardList);
+				setBoardView([...boardList]);
 			}
 		};
 
 		fillViewBoard();
-	}, [board, boardBool, currentColor, turn]);
+	}, [board, currentColor, turn]);
+
+	useEffect(() => {
+		function showColorPegOptions() {
+			let colorList = [];
+			let colorOptions = Object.values(Color);
+			colorOptions.splice(6, 7); // rm black & white
+			while (colorOptions.length > 0) {
+				if (currentColor && currentColor === colorOptions[colorOptions.length - 1]) {
+					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } colorIsActive />);
+				} else {
+					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } />);
+				}
+				colorOptions.pop();
+			}
+			setColorPegOptionsView([...colorList]);
+		};
+
+		showColorPegOptions();
+	}, [currentColor]);
 
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
 			const clueRowList:JSX.Element[] = [];
 			if (cluesBord || typeof cluesBord !== 'undefined') {
 				for (let j = 0; j < pegsInRow; j++) {
-					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j]} />);
+					clueRowList.push(
+						<CluePeg key={ j } className={ cluesBord[row][j] } />
+					);
 				}
 			}
 
@@ -148,7 +156,7 @@ const Board = () => {
 				for (let i = 0; i < totalRows; i++) {
 					cluesBoardList.push(fillClueRow(i));
 				}
-				setCluesBoardView(cluesBoardList);
+				setCluesBoardView([...cluesBoardList]);
 			}
 		};
 
@@ -163,7 +171,7 @@ const Board = () => {
 				<div className="mastermind__side">
 					<h2>{ turn === totalRows ? turn : turn + 1 }</h2>
 					<button className="button button__check" onClick={ () => checkCode() }>Check</button>
-					<div className="color-peg-options">{ showColorPegOptions() }</div>
+					<div className="color-peg-options">{ colorPegOptionsView }</div>
 				</div>
 			</div>
             <Modal

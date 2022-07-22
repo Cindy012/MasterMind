@@ -109,50 +109,54 @@ body {
 	background-color: $color-white;
 	display: inline-block;
 	border: $border-1;
+	cursor: pointer;
 
-	&:hover, &:active { 
-		border: $border-2; 
-	}
+	&__peg-option {
+		&:hover, &:active {
+			border: $border-2; 
+		}
 
-	&__selected {
-		border: $border-2; 
+		&__selected {
+			border: $border-2; 
+		}
 	}
 
 	&.clue {
+		cursor: none;
 		height: 20px;
 		width: 20px;
 	}
 
-	&.red {
+	&__red {
 		background-color: $color-red;
 	}
 	
-	&.orange {
+	&__orange {
 		background-color: $color-orange;
 	}
 
-	&.yellow {
+	&__yellow {
 		background-color: $color-yellow;
 	}
 
-	&.green {
+	&__green {
 		background-color: $color-green;
 	}
 	
-	&.blue {
+	&__blue {
 		background-color: $color-blue;
 	}
 	
-	&.purple {
+	&__purple {
 		background-color: $color-purple;
 	}
 
-	&.white {
+	&__white {
 		background-color: $color-white;
 		border: $border-1;
 	}
 	
-	&.black {
+	&__black {
 		background-color: $color-black;
 	}
 }
@@ -182,6 +186,7 @@ body {
 	&__icon {
 		border: none;
 		background-color: $color-white;
+		cursor: pointer;
 	}
 }
 

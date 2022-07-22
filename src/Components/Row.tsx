@@ -15,11 +15,11 @@ const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg }) => {
             if (row) {
                 rowsList.push(
                     <Peg
-                        key= {i}
-                        rowId= {rowId}
-                        pegId= {i}
-                        className= {row[i]}
-                        colorPeg= {colorPeg}
+                        key={ i }
+                        rowId={ rowId }
+                        pegId={ i }
+                        className={ row[i] }
+                        colorPeg={ colorPeg }
                     />
                 );
             }
