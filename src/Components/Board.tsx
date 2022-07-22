@@ -12,7 +12,6 @@ const Board = () => {
 	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
-	const [isPlaying, setIsPlaying] = useState<boolean>(true);
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -25,12 +24,9 @@ const Board = () => {
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
-	const playAgain = () => resetGame();
-
 	const resetGame = () => {
 		setCode(createCode(pegsInRow));
 		setTurn(0);
-		setIsPlaying(true);
 		setBoard(initializeBoard(totalRows, pegsInRow));
 		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
 		setGameStatus(0);
@@ -63,12 +59,7 @@ const Board = () => {
 				}
 			});
 			setCluesBoard(newCluesBord);
-			if (isGameOver() && isPlaying) {
-				setIsPlaying(false);
-				setShowModal(true);
-			} else {
-				setTurn(turn + 1);
-			}
+			isGameOver() ? setShowModal(true) : setTurn(turn + 1);
 		}
 	};
 
@@ -180,7 +171,7 @@ const Board = () => {
                 show={ showModal }
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
-				resetGame={ playAgain }
+				resetGame={ () => resetGame() }
             	hideCloseButton
             />
 		</Fragment>
