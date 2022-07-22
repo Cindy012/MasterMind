@@ -75,6 +75,10 @@
     }
 }
 
+.modal-content {
+    p { text-align: justify;}
+}
+
 @media (max-width: 550px) {
     .modal {    
         &__content {

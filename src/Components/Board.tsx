@@ -53,11 +53,11 @@ const Board = () => {
 
 	const isGameOver = () => {
 		if (isCodeCorrect() && turn < totalRows ) {
-			setModalTitle('You win!');
+			setModalTitle('Winner!');
 			setGameStatus(1);
 			return true;
 		} else if (board[turn] !== code && turn === totalRows - 1) {
-			setModalTitle('You lose!');
+			setModalTitle('Loser!');
 			setGameStatus(2);
 			return true;
 		}

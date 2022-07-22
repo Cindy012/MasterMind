@@ -1,4 +1,3 @@
-import '../scss/modal.scss';
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 
@@ -54,7 +53,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
             <div className="modal__content">
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title ? title : 'Something went wrong' }</h2> 
-                <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
+                <p>{ renderSwitch(gameStatus) }</p>
                 { content && content }
                 <div className="modal__footer">
                     { gameStatus !== 0 && !content? (
