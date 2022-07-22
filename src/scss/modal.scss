@@ -28,14 +28,21 @@
         visibility: hidden;
         transform: translateY(-100px);
         padding: 16px 20px;
+
+        &__small {
+            width: 375px;
+        }
     }
     
     &__footer {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
+        padding-top: 10px;
 
         &__secondary {
+            padding-top: 10px;
+            text-align: center;
             justify-content: center;
         }
     }

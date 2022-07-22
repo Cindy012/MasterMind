@@ -8,10 +8,10 @@ interface ModalProps {
     title: string | undefined;
     resetGame?: () => void
     gameStatus?: number;
-    content?: JSX.Element;
+    gameInfo?: JSX.Element;
 }
 
-const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus, content }) => {
+const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus, gameInfo }) => {
     const [playConfetti, setPlayConfetti] = useState(false);
     const playAgain = () => {
         if (resetGame) {
@@ -50,13 +50,13 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
        
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
-            <div className="modal__content">
+            <div className={ gameInfo ? 'modal__content' : 'modal__content modal__content__small' }>
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title ? title : 'Something went wrong' }</h2> 
                 <p>{ renderSwitch(gameStatus) }</p>
-                { content && content }
-                <div className={ gameStatus !== 0 && !content ? `modal__footer` : `modal__footer__secondary`}>
-                    { gameStatus !== 0 && !content ? (
+                { gameInfo && gameInfo }
+                <div className={ gameStatus !== 0 && !gameInfo ? 'modal__footer' : 'modal__footer__secondary'}>
+                    { gameStatus !== 0 && !gameInfo ? (
                         <button className="modal__button" onClick={ () => playAgain() }>Play again!</button>
                     ) : null }
                     <button className="modal__button" onClick={ () => setShowModal(false) }>Close</button>

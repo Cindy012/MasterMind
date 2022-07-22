@@ -31,7 +31,7 @@ const MasterMind = () => {
 				title={ modalTitle }
 				show={ showModal }
 				setShowModal={ setShowModal }
-				content={ getGameInfo() }
+				gameInfo={ getGameInfo() }
 				hideCloseButton
 			/>
 		</Fragment>
