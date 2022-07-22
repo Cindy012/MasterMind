@@ -121,14 +121,6 @@ body {
 		}
 	}
 
-	&:hover, &:active { 
-		border: $border-2; 
-	}
-
-	&__selected {
-		border: $border-2; 
-	}
-
 	&.clue {
 		cursor: none;
 		height: 20px;
