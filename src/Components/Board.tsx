@@ -26,8 +26,6 @@ const Board = () => {
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
-	const playAgain = () => resetGame();
-
 	const resetGame = () => {
 		setCode(createCode(pegsInRow));
 		setTurn(0);
@@ -50,22 +48,19 @@ const Board = () => {
 				}
 			});
 			setCluesBoard(newCluesBord);
-			let result = checkGameStatus();
-			result ? setTurn(13) : setTurn(turn + 1);
+			isGameOver() ? setShowModal(true) : setTurn(turn + 1);
 		}
 	};
 
-	const checkGameStatus = () => {
+	const isGameOver = () => {
 		if (isCodeCorrect() && turn < totalRows ) {
 			setModalTitle('You win!');
 			setGameStatus(1);
-			setTurn(13);
-			setShowModal(true);
 			return true;
 		} else if (board[turn] !== code && turn === totalRows - 1) {
 			setModalTitle('You lose!');
 			setGameStatus(2);
-			setShowModal(true);
+			return true;
 		}
 		return false;
 	};
@@ -186,7 +181,7 @@ const Board = () => {
                 show={ showModal }
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
-				resetGame={ playAgain }
+				resetGame={ () => resetGame() }
             	hideCloseButton
             />
 		</Fragment>

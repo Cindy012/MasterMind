@@ -11,7 +11,6 @@ $color-light-grey: #e7e7e7;
 
 $border-1: 1px solid $color-black;
 $border-2: 2px solid $color-black;
-$border-3: 3px solid $color-black;
 
 body {
 	margin: auto;
@@ -33,7 +32,7 @@ body {
 }
 
 .board-border {
-	border: $border-3;
+	border: $border-2;
 	padding: 10px;
 	height: fit-content;
 }
@@ -81,7 +80,7 @@ body {
 
 .color-peg-options {
 	@extend .flex-column;
-	border: $border-3;
+	border: $border-2;
 	padding: 11px;
 	margin: 10px 10px;
 	gap: 13px;
@@ -120,6 +119,14 @@ body {
 		&__selected {
 			border: $border-2; 
 		}
+	}
+
+	&:hover, &:active { 
+		border: $border-2; 
+	}
+
+	&__selected {
+		border: $border-2; 
 	}
 
 	&.clue {
