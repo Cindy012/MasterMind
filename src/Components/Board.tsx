@@ -123,9 +123,22 @@ const Board = () => {
 			colorOptions.splice(6, 7); // rm black & white
 			while (colorOptions.length > 0) {
 				if (currentColor && currentColor === colorOptions[colorOptions.length - 1]) {
-					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } colorOptionIsActive />);
+					colorList.push(
+						<Peg
+							className={ colorOptions[colorOptions.length - 1] }
+							selectColor={ selectCurrentColor }
+							colorOption
+							colorOptionIsActive
+						/>
+					);
 				} else {
-					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } />);
+					colorList.push(
+						<Peg
+							className={ colorOptions[colorOptions.length - 1] }
+							selectColor={ selectCurrentColor } 
+							colorOption
+						/>
+					);
 				}
 				colorOptions.pop();
 			}

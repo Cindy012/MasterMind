@@ -109,9 +109,10 @@ body {
 	background-color: $color-white;
 	display: inline-block;
 	border: $border-1;
-	// cursor: pointer;
 
 	&__active {
+		cursor: pointer;
+
 		&:hover, &:active {
 			border: $border-2; 
 		}

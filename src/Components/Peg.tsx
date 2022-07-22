@@ -30,7 +30,8 @@ const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg
         let btnClassName = `peg peg__${className} `;
         if (colorOption) {
             btnClassName += colorOptionIsActive ? `peg__active peg__selected` : `peg__active`;
-        } else if (pegIsActive){
+        } 
+        if (pegIsActive){
             btnClassName += pegIsActive ? `peg__active`: null;
         }
         return btnClassName;

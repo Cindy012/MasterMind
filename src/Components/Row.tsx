@@ -7,9 +7,11 @@ interface RowProps {
     pegsInRow: number;
     colorPeg?: (rowId: number, pegId: number) => void;
     pegIsActive?: boolean;
+    colorOption?: boolean;
+    colorOptionIsActive?: boolean
 }
 
-const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg, pegIsActive }) => {
+const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg, pegIsActive, colorOptionIsActive, colorOption }) => {
     const fillRow = () => {
         const rowsList = [];
         for (let i = 0; i < pegsInRow; i++) {
@@ -22,6 +24,8 @@ const Row:React.FC<RowProps> = ({ rowId, row, pegsInRow, colorPeg, pegIsActive }
                         className={ row[i] }
                         colorPeg={ colorPeg }
                         pegIsActive={ pegIsActive }
+                        colorOptionIsActive={ colorOptionIsActive }
+                        colorOption={ colorOption }
                     />
                 );
             }
