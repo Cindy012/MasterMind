@@ -46,7 +46,7 @@ const Board = () => {
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
-			setCluesBoard(newCluesBord);
+			setCluesBoard([...newCluesBord]);
 			isGameOver() ? setShowModal(true) : setTurn(turn + 1);
 		}
 	};
@@ -105,6 +105,7 @@ const Board = () => {
 							row={ board[i] }
 							colorPeg={ colorPeg }
 							pegsInRow={ pegsInRow }
+							pegIsActive={ turn === i }
 						/>
 					);
 				}
@@ -122,7 +123,7 @@ const Board = () => {
 			colorOptions.splice(6, 7); // rm black & white
 			while (colorOptions.length > 0) {
 				if (currentColor && currentColor === colorOptions[colorOptions.length - 1]) {
-					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } colorIsActive />);
+					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } colorOptionIsActive />);
 				} else {
 					colorList.push(<Peg className={ colorOptions[colorOptions.length - 1] } selectColor={ selectCurrentColor } />);
 				}
