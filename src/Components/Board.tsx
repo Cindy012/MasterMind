@@ -15,7 +15,6 @@ const Board = () => {
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
-	const [boardBool, setBoardBool] = useState<boolean>(false);
 	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
 	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard(totalRows, pegsInRow));
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
@@ -91,8 +90,7 @@ const Board = () => {
 			if (rowId === turn && board && currentColor) {
 				let newBoard = board;
 				newBoard[rowId][pegId] = currentColor;
-				setBoard(newBoard);
-				setBoardBool(!boardBool);
+				setBoard([...newBoard]);
 			}
 		};
 		
@@ -110,12 +108,12 @@ const Board = () => {
 						/>
 					);
 				}
-				setBoardView(boardList);
+				setBoardView([...boardList]);
 			}
 		};
 
 		fillViewBoard();
-	}, [board, boardBool, currentColor, turn]);
+	}, [board, currentColor, turn]);
 
 	useEffect(() => {
 		function showColorPegOptions() {
@@ -130,11 +128,11 @@ const Board = () => {
 				}
 				colorOptions.pop();
 			}
-			setColorPegOptionsView(colorList);
+			setColorPegOptionsView([...colorList]);
 		};
 
 		showColorPegOptions();
-	}, [currentColor])
+	}, [currentColor]);
 
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
@@ -158,7 +156,7 @@ const Board = () => {
 				for (let i = 0; i < totalRows; i++) {
 					cluesBoardList.push(fillClueRow(i));
 				}
-				setCluesBoardView(cluesBoardList);
+				setCluesBoardView([...cluesBoardList]);
 			}
 		};
 
