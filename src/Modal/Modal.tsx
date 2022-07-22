@@ -1,5 +1,6 @@
 import '../scss/modal.scss';
 import confetti from 'canvas-confetti';
+import { useEffect, useState } from 'react';
 
 // Source: https://reactjsexample.com/video-tutorial-make-a-modal-in-reactjs/
 
@@ -14,12 +15,14 @@ interface ModalProps {
 }
 
 const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus, content }) => {
+    const [playConfetti, setPlayConfetti] = useState(false);
     const playAgain = () => {
         if (resetGame) {
+            setPlayConfetti(false);
             resetGame();
             setShowModal(false);
         }
-    } 
+    };
 
     const renderSwitch = (state: number | undefined) => {
         if (state !== undefined) {
@@ -34,26 +37,32 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
         }
     };
 
-    if (gameStatus === 1 && resetGame) {
-        confetti({
-            particleCount: 160,
-            spread: 100,
-            colors: ['#e43b3b', '#e48a3b', '#e4de3b', '#3be45d', '#3be4de', '#3b60e4', '#8d3be4', '#e43b9b']
-        });
-    };
-    
+    if (gameStatus === 1 && resetGame && !playConfetti) {
+        setPlayConfetti(true);
+    }
+
+    useEffect(() => {
+        if (playConfetti) {
+            confetti({
+                particleCount: 160,
+                spread: 100,
+                colors: ['#e43b3b', '#e48a3b', '#e4de3b', '#3be45d', '#3be4de', '#3b60e4', '#8d3be4', '#e43b9b']
+            });
+        }
+    },[playConfetti]);
+       
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
             <div className="modal__content">
-                { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
+                { !hideCloseButton && <span onClick={ () => setShowModal(false) } className="modal__close">&times;</span> }
                 <h2>{ title }</h2>
                 <p style={{ textAlign: 'justify' }}>{ renderSwitch(gameStatus) }</p>
                 {content ? content : null}
                 <div className="modal__footer">
                     { gameStatus !== 0 && !content? (
-                        <button className="modal__button" onClick={() => playAgain()}>Play again!</button>
+                        <button className="modal__button" onClick={ () => playAgain() }>Play again!</button>
                     ) : null }
-                    <button className="modal__button" onClick={() => setShowModal(false)}>Close</button>
+                    <button className="modal__button" onClick={ () => setShowModal(false) }>Close</button>
                 </div>
             </div>
         </div>
