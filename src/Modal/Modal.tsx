@@ -1,8 +1,6 @@
 import '../scss/modal.scss';
 import confetti from 'canvas-confetti';
 
-// Source: https://reactjsexample.com/video-tutorial-make-a-modal-in-reactjs/
-
 interface ModalProps {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     hideCloseButton?: boolean;

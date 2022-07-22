@@ -37,12 +37,12 @@ const Board = () => {
 	function showColorPegOptions() {
 		return (
 			<Fragment>
-				<Peg className= {Color.Red} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Orange} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Yellow} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Green} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Blue} selectColor= {selectCurrentColor} />
-				<Peg className= {Color.Purple} selectColor= {selectCurrentColor} />
+				<Peg className={ Color.Red } selectColor={ selectCurrentColor } colorOption />
+				<Peg className={ Color.Orange } selectColor={ selectCurrentColor } colorOption />
+				<Peg className={ Color.Yellow } selectColor={ selectCurrentColor } colorOption />
+				<Peg className={ Color.Green } selectColor={ selectCurrentColor } colorOption />
+				<Peg className={ Color.Blue } selectColor={ selectCurrentColor } colorOption />
+				<Peg className={ Color.Purple } selectColor={ selectCurrentColor } colorOption />
 			</Fragment>
 		)
 	};
@@ -118,11 +118,11 @@ const Board = () => {
 				for (let i = 0; i < totalRows; i++) {
 					boardList.push(
 						<Row
-							key= {i}
-							rowId= {i}
-							row= {board[i]}
-							colorPeg= {colorPeg}
-							pegsInRow= {pegsInRow}
+							key={ i }
+							rowId={ i }
+							row={ board[i] }
+							colorPeg={ colorPeg }
+							pegsInRow={ pegsInRow }
 						/>
 					);
 				}
@@ -138,7 +138,9 @@ const Board = () => {
 			const clueRowList:JSX.Element[] = [];
 			if (cluesBord || typeof cluesBord !== 'undefined') {
 				for (let j = 0; j < pegsInRow; j++) {
-					clueRowList.push(<CluePeg key={j} className={cluesBord[row][j]} />);
+					clueRowList.push(
+						<CluePeg key={ j } className={ cluesBord[row][j] } />
+					);
 				}
 			}
 

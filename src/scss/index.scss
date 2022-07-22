@@ -116,36 +116,40 @@ body {
 		width: 20px;
 	}
 
-	&.red {
+	&__selectColor {
+		border: $border-1;
+	}
+
+	&__red {
 		background-color: $color-red;
 	}
 	
-	&.orange {
+	&__orange {
 		background-color: $color-orange;
 	}
 
-	&.yellow {
+	&__yellow {
 		background-color: $color-yellow;
 	}
 
-	&.green {
+	&__green {
 		background-color: $color-green;
 	}
 	
-	&.blue {
+	&__blue {
 		background-color: $color-blue;
 	}
 	
-	&.purple {
+	&__purple {
 		background-color: $color-purple;
 	}
 
-	&.white {
+	&__white {
 		background-color: $color-white;
 		border: $border-1;
 	}
 	
-	&.black {
+	&__black {
 		background-color: $color-black;
 	}
 }

@@ -28,10 +28,10 @@ const MasterMind = () => {
 				<Board />
 			</div>
 			<Modal
-				title= { modalTitle }
+				title={ modalTitle }
 				show={ showModal }
 				setShowModal={ setShowModal }
-				content= { getGameInfo() }
+				content={ getGameInfo() }
 				hideCloseButton
 			/>
 		</Fragment>
