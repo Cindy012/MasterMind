@@ -7,10 +7,11 @@ interface PegProps {
     selectColor?: (color: Color) => void;
     colorPeg?: (rowId: number, pegId: number) => void;
     colorOption?: boolean;
-    colorIsActive?: boolean;
+    colorOptionIsActive?: boolean;
+    pegIsActive?: boolean;
 }
 
-const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg, colorOption, colorIsActive }) => {
+const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg, colorOption, colorOptionIsActive, pegIsActive }) => {
     const colorSelectedPeg = (rowId?: number, pegId?: number) => {
         if (typeof rowId !== 'number' || typeof pegId !== 'number' || !colorPeg || typeof colorPeg === 'undefined') {
             return;
@@ -25,13 +26,20 @@ const Peg:React.FC<PegProps> = ({ rowId, pegId, className, selectColor, colorPeg
         selectColor(color);
     };
 
+    function getBtnClassName(): string {
+        let btnClassName = `peg peg__${className} `;
+        if (colorOption) {
+            btnClassName += colorOptionIsActive ? `peg__active peg__selected` : `peg__active`;
+        } 
+        if (pegIsActive){
+            btnClassName += pegIsActive ? `peg__active`: null;
+        }
+        return btnClassName;
+    }
+
     return (
         <button 
-            className={ colorOption ? (
-                colorIsActive ? `peg peg__${className} peg__peg-option__selected`
-                        : `peg peg__${className} peg__peg-option`)
-                    : `peg peg__${className}` 
-                } 
+            className={ getBtnClassName() } 
             onClick={() => {
                 className && !colorPeg ? selectedColor(className) : colorSelectedPeg(rowId, pegId);
             }}
