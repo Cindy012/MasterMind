@@ -21,6 +21,7 @@ const Board = () => {
 	const [showModal, setShowModal] = useState(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
+	
 	const openModal = () => setShowModal(true);
 
 	const resetGame = () => {
@@ -59,7 +60,7 @@ const Board = () => {
 		return false;
 	};
 
-	function openGameInfoModal(): void {
+	function openGameInfoModal() {
 		setGameStatus(0);
 		openModal();
 	}
