@@ -1,5 +1,6 @@
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
+import { getGameInfo } from '../Components/View';
 
 interface ModalProps {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,10 +8,9 @@ interface ModalProps {
     show: boolean;
     resetGame?: () => void
     gameStatus: number; // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
-    gameInfo?: JSX.Element;
 }
 
-const Modal:React.FC<ModalProps> = ({ setShowModal, show, hideCloseButton, resetGame, gameStatus, gameInfo }) => {
+const Modal:React.FC<ModalProps> = ({ setShowModal, show, hideCloseButton, resetGame, gameStatus }) => {
     const [playConfetti, setPlayConfetti] = useState(false);
     const playAgain = () => {
         if (resetGame) {
@@ -50,10 +50,10 @@ const Modal:React.FC<ModalProps> = ({ setShowModal, show, hideCloseButton, reset
        
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
-            <div className={ gameInfo ? 'modal__content' : 'modal__content modal__content__small' }>
+            <div className='modal__content'>
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title[gameStatus] }</h2> 
-                { gameInfo && gameStatus === 0 ? gameInfo : <p>{ text[gameStatus] }</p> }
+                { gameStatus === 0 ? getGameInfo() : <p>{ text[gameStatus] }</p> }
                 <div className={ gameStatus === 0 || gameStatus === 1 ? 'modal__footer__secondary' : 'modal__footer'}>
                     { gameStatus !== 1 && gameStatus !== 0 ? (
                         <button className="modal__button" onClick={ () => playAgain() }>Play again!</button>

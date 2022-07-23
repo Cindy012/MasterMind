@@ -6,12 +6,10 @@ import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
-import { getGameInfo } from './View';
 
 const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
-
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
@@ -182,7 +180,6 @@ const Board = () => {
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
 				resetGame={ () => resetGame() }
-				gameInfo={ getGameInfo() }
             	hideCloseButton
             />
 		</Fragment>
