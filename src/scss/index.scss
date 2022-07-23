@@ -207,3 +207,46 @@ body {
 		height: 20px;
 	}
 }
+
+@media (max-width: 450px) {
+	body {
+		width: fit-content;
+		padding: 0px 5px;
+	}
+
+    .peg {    
+        height: 30px;
+		width: 30px;
+
+		&.clue {
+			height: 15px;
+			width: 15px;
+		}
+    }
+
+	.mastermind {
+		&__side {
+			.color-peg-options {
+				@extend .flex-column;
+				border: $border-2;
+				padding: 8px;
+				margin: 11px 10px;
+				gap: 10px;
+			}
+		}
+	}
+
+	.modal {    
+        &__content {
+            width: 300px;
+        }
+    }
+}
+
+@media (max-width: 300px) {
+	.modal {    
+		&__content {
+			width: 200px;
+		}
+	}
+}
