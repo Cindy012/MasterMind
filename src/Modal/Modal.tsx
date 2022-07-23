@@ -1,17 +1,16 @@
 import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
+import { getGameInfo } from '../Components/View';
 
 interface ModalProps {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     hideCloseButton?: boolean;
     show: boolean;
-    title: string | undefined;
     resetGame?: () => void
-    gameStatus?: number;
-    gameInfo?: JSX.Element;
+    gameStatus: number; // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
 }
 
-const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton, resetGame, gameStatus, gameInfo }) => {
+const Modal:React.FC<ModalProps> = ({ setShowModal, show, hideCloseButton, resetGame, gameStatus }) => {
     const [playConfetti, setPlayConfetti] = useState(false);
     const playAgain = () => {
         if (resetGame) {
@@ -21,20 +20,21 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
         }
     };
 
-    const renderSwitch = (state: number | undefined) => {
-        if (state !== undefined) {
-            switch(state) {
-                case 1:
-                    return 'You win, play again!';
-                case 2:
-                    return 'You lose, next time better!';
-                default:
-                    return 'You did not give the code colors.';
-            }
-        }
-    };
+    const title: string[] = [
+        'Mastermind game info',
+        'Not Yet!',
+        'Winner!',
+        'Loser!'
+    ];
 
-    if (gameStatus === 1 && resetGame && !playConfetti) {
+    const text: string[] = [
+        '',
+        'You did not give the code colors.',
+        'You win, play again!',
+        'You lose, next time better!'
+    ];
+
+    if (gameStatus === 2 && resetGame && !playConfetti) {
         setPlayConfetti(true);
     }
 
@@ -50,13 +50,12 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
        
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
-            <div className={ gameInfo ? 'modal__content' : 'modal__content modal__content__small' }>
+            <div className='modal__content'>
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
-                <h2>{ title ? title : 'Something went wrong' }</h2> 
-                <p>{ renderSwitch(gameStatus) }</p>
-                { gameInfo && gameInfo }
-                <div className={ gameStatus !== 0 && !gameInfo ? 'modal__footer' : 'modal__footer__secondary'}>
-                    { gameStatus !== 0 && !gameInfo ? (
+                <h2>{ title[gameStatus] }</h2> 
+                { gameStatus === 0 ? getGameInfo() : <p>{ text[gameStatus] }</p> }
+                <div className={ gameStatus === 0 || gameStatus === 1 ? 'modal__footer__secondary' : 'modal__footer'}>
+                    { gameStatus !== 1 && gameStatus !== 0 ? (
                         <button className="modal__button" onClick={ () => playAgain() }>Play again!</button>
                     ) : null }
                     <button className="modal__button" onClick={ () => setShowModal(false) }>Close</button>

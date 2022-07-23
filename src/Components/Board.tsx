@@ -6,84 +6,83 @@ import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
-import { getGameInfo } from './View';
 
 const Board = () => {
 	const totalRows = 8;
 	const pegsInRow = 4;
-
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
-	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
-	const [board, setBoard] = useState<Color[][]>(initializeBoard(totalRows, pegsInRow));
-	const [cluesBord, setCluesBoard] = useState<Color[][]>(initializeCluesBoard(totalRows, pegsInRow));
+	const [gameStatus, setGameStatus] = useState<number>(0); // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
+	const [board, setBoard] = useState({ gameBoard: initializeBoard(totalRows, pegsInRow), clueBoard: initializeCluesBoard(totalRows, pegsInRow)});
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
-	const [modalTitle, setModalTitle] = useState<string>();
-	const [showModal, setShowModal] = useState<boolean>(false);
-	const [showGameInfoModal, setShowGameInfoModal] = useState<boolean>(false);
+	const [showModal, setShowModal] = useState(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
+	
+	const openModal = () => setShowModal(true);
 
 	const resetGame = () => {
 		setCode(createCode(pegsInRow));
 		setTurn(0);
-		setBoard(initializeBoard(totalRows, pegsInRow));
-		setCluesBoard(initializeCluesBoard(totalRows, pegsInRow));
-		setGameStatus(0);
+		setBoard({ gameBoard: initializeBoard(totalRows, pegsInRow), clueBoard: initializeCluesBoard(totalRows, pegsInRow) });
+		setGameStatus(1);
 	};
 
 	const checkCode = () => {
-		if (turn < totalRows && board[turn].includes(Color.White)) {
-			setModalTitle('Not yet');
-			setShowModal(true);
+		if (turn < totalRows && board.gameBoard[turn].includes(Color.White)) {
+			setGameStatus(1);
+			openModal();
 		} else if (turn < totalRows) {
-			let newCluesBord = cluesBord;
+			let newCluesBoard = board.clueBoard;
 			code.forEach((color, index) => {
-				if (color === board[turn][index]) {
-					newCluesBord[turn][index] = Color.Black;
-				} else if (colorContainsInCode(code, board[turn][index])) {
-					newCluesBord[turn][index] = Color.Red;
+				if (color === board.gameBoard[turn][index]) {
+					newCluesBoard[turn][index] = Color.Black;
+				} else if (colorContainsInCode(code, board.gameBoard[turn][index])) {
+					newCluesBoard[turn][index] = Color.Red;
 				}
 			});
-			setCluesBoard([...newCluesBord]);
-			isGameOver() ? setShowModal(true) : setTurn(turn + 1);
+			setBoard({ gameBoard: board.gameBoard, clueBoard: [...newCluesBoard] });
+			isGameOver() ? openModal() : setTurn(turn + 1);
 		}
 	};
 
 	const isGameOver = () => {
-		if (isCodeCorrect(code, board[turn]) && turn < totalRows ) {
-			setModalTitle('Winner!');
-			setGameStatus(1);
-			return true;
-		} else if (board[turn] !== code && turn === totalRows - 1) {
-			setModalTitle('Loser!');
+		if (isCodeCorrect(code, board.gameBoard[turn]) && turn < totalRows ) {
 			setGameStatus(2);
+			return true;
+		} else if (board.gameBoard[turn] !== code && turn === totalRows - 1) {
+			setGameStatus(3);
 			return true;
 		}
 		return false;
 	};
 
+	function openGameInfoModal() {
+		setGameStatus(0);
+		openModal();
+	}
+
 	useEffect(() => {
 		const colorPeg = (rowId: number, pegId: number) => {
-			if (rowId === turn && board && currentColor) {
-				let newBoard = board;
+			if (rowId === turn && board.gameBoard && currentColor) {
+				let newBoard = board.gameBoard;
 				newBoard[rowId][pegId] = currentColor;
-				setBoard([...newBoard]);
+				setBoard({ gameBoard: [...newBoard], clueBoard: board.clueBoard });
 			}
 		};
 		
 		const fillViewBoard = () => {
 			const boardList = [];
-			if (board || typeof board !== 'undefined') {
+			if (board.gameBoard || typeof board.gameBoard !== 'undefined') {
 				for (let i = 0; i < totalRows; i++) {
 					boardList.push(
 						<Row
 							key={ i }
 							rowId={ i }
-							row={ board[i] }
+							row={ board.gameBoard[i] }
 							colorPeg={ colorPeg }
 							pegsInRow={ pegsInRow }
 							pegIsActive={ turn === i }
@@ -95,7 +94,7 @@ const Board = () => {
 		};
 
 		fillViewBoard();
-	}, [board, currentColor, turn]);
+	}, [board.clueBoard, board.gameBoard, currentColor, turn]);
 
 	useEffect(() => {
 		function showColorPegOptions() {
@@ -132,10 +131,10 @@ const Board = () => {
 	useEffect(() => {
 		const fillClueRow = (row: number) => {
 			const clueRowList:JSX.Element[] = [];
-			if (cluesBord || typeof cluesBord !== 'undefined') {
+			if (board.clueBoard || typeof board.clueBoard !== 'undefined') {
 				for (let j = 0; j < pegsInRow; j++) {
 					clueRowList.push(
-						<CluePeg key={ j } className={ cluesBord[row][j] } />
+						<CluePeg key={ j } className={ board.clueBoard[row][j] } />
 					);
 				}
 			}
@@ -147,7 +146,7 @@ const Board = () => {
 
 		const showClues = () => {
 			const cluesBoardList:JSX.Element[] = [];
-			if (cluesBord || typeof cluesBord !== 'undefined') {
+			if (board.clueBoard || typeof board.clueBoard !== 'undefined') {
 				for (let i = 0; i < totalRows; i++) {
 					cluesBoardList.push(fillClueRow(i));
 				}
@@ -156,7 +155,7 @@ const Board = () => {
 		};
 
 		showClues();
-	}, [cluesBord, turn]);
+	}, [board.clueBoard, turn]);
 
 	return (
 		<Fragment>
@@ -164,7 +163,7 @@ const Board = () => {
 				<button className="button__icon" onClick={ () => resetGame() }>
 					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
 				</button>
-				<button className="button__icon" onClick={ () => setShowGameInfoModal(true) }>
+				<button className="button__icon" onClick={ () => openGameInfoModal() }>
 					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
 				</button>
 			</div>
@@ -178,20 +177,12 @@ const Board = () => {
 				</div>
 			</div>
             <Modal
-				title={ modalTitle }
-                show={ showModal }
+                show={ showModal}
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
 				resetGame={ () => resetGame() }
             	hideCloseButton
             />
-			<Modal
-				title={ 'Mastermind game info' }
-				show={ showGameInfoModal }
-				setShowModal={ setShowGameInfoModal }
-				gameInfo={ getGameInfo() }
-				hideCloseButton
-			/>
 		</Fragment>
 	);
 };
