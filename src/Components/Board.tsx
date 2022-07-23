@@ -161,11 +161,11 @@ const Board = () => {
 	return (
 		<Fragment>
 			<div className="mastermind__header__icons">
-				<button className="button__icon" onClick={ () => setShowGameInfoModal(true) }>
-					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
-				</button>
 				<button className="button__icon" onClick={ () => resetGame() }>
 					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+				</button>
+				<button className="button__icon" onClick={ () => setShowGameInfoModal(true) }>
+					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
 				</button>
 			</div>
 			<div className="mastermind__board-content">
