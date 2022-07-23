@@ -15,27 +15,27 @@ const Board = () => {
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
 	const [currentColor, setCurrentColor] = useState<Color>();
-	const [gameStatus, setGameStatus] = useState<number>(0); // 0: not filled, 1: winner, 2: loser
+	const [gameStatus, setGameStatus] = useState<number>(0); // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
 	const [board, setBoard] = useState({ gameBoard: initializeBoard(totalRows, pegsInRow), clueBoard: initializeCluesBoard(totalRows, pegsInRow)});
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
-	const [modalTitle, setModalTitle] = useState<string>();
-	const [showModal, setShowModal] = useState({ showGameStateModal: false, showGameInfoModal: false });
+	const [showModal, setShowModal] = useState(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
+	const openModal = () => setShowModal(true);
 
 	const resetGame = () => {
 		setCode(createCode(pegsInRow));
 		setTurn(0);
 		setBoard({ gameBoard: initializeBoard(totalRows, pegsInRow), clueBoard: initializeCluesBoard(totalRows, pegsInRow) });
-		setGameStatus(0);
+		setGameStatus(1);
 	};
 
 	const checkCode = () => {
 		if (turn < totalRows && board.gameBoard[turn].includes(Color.White)) {
-			setModalTitle('Not yet');
-			setShowModal({ showGameStateModal: true, showGameInfoModal: false })
+			setGameStatus(1);
+			openModal();
 		} else if (turn < totalRows) {
 			let newCluesBoard = board.clueBoard;
 			code.forEach((color, index) => {
@@ -46,22 +46,25 @@ const Board = () => {
 				}
 			});
 			setBoard({ gameBoard: board.gameBoard, clueBoard: [...newCluesBoard] });
-			isGameOver() ? setShowModal({ showGameStateModal: true, showGameInfoModal: false })  : setTurn(turn + 1);
+			isGameOver() ? openModal() : setTurn(turn + 1);
 		}
 	};
 
 	const isGameOver = () => {
 		if (isCodeCorrect(code, board.gameBoard[turn]) && turn < totalRows ) {
-			setModalTitle('Winner!');
-			setGameStatus(1);
+			setGameStatus(2);
 			return true;
 		} else if (board.gameBoard[turn] !== code && turn === totalRows - 1) {
-			setModalTitle('Loser!');
-			setGameStatus(2);
+			setGameStatus(3);
 			return true;
 		}
 		return false;
 	};
+
+	function openGameInfoModal(): void {
+		setGameStatus(0);
+		openModal();
+	}
 
 	useEffect(() => {
 		const colorPeg = (rowId: number, pegId: number) => {
@@ -161,7 +164,7 @@ const Board = () => {
 				<button className="button__icon" onClick={ () => resetGame() }>
 					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
 				</button>
-				<button className="button__icon" onClick={ () => setShowModal({ showGameStateModal: false, showGameInfoModal: true }) }>
+				<button className="button__icon" onClick={ () => openGameInfoModal() }>
 					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
 				</button>
 			</div>
@@ -175,20 +178,13 @@ const Board = () => {
 				</div>
 			</div>
             <Modal
-				title={ modalTitle }
-                show={ showModal.showGameStateModal }
+                show={ showModal}
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
 				resetGame={ () => resetGame() }
+				gameInfo={ getGameInfo() }
             	hideCloseButton
             />
-			<Modal
-				title={ 'Mastermind game info' }
-				show={ showModal.showGameInfoModal }
-				setShowModal={ setShowModal }
-				gameInfo={ getGameInfo() }
-				hideCloseButton
-			/>
 		</Fragment>
 	);
 };
