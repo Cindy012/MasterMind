@@ -21,9 +21,14 @@ const MasterMind = () => {
 			<div className="mastermind">
 				<div className="mastermind__header">
 					<h1>MASTERMIND</h1>
-					<button className="button__icon" onClick={ () => setShowModal(true) }>
-						<img className="image__icon" src={ require('../image/information.png') } alt=""/>
-					</button>
+					<div className="mastermind__header__icons">
+						<button className="button__icon" onClick={ () => setShowModal(true) }>
+							<img className="image__icon" src={ require('../image/information.png') } alt=""/>
+						</button>
+						<button className="button__icon" onClick={ () => setShowModal(true) }>
+							<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+						</button>
+					</div>
 				</div>
 				<Board />
 			</div>
