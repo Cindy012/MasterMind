@@ -18,3 +18,24 @@ export function createCode(pegs: number) {
     }
     return code;
 };
+
+export function isCodeCorrect(code: Color[], row: Color[]) {
+    let i = 0;
+    while (i < row.length) {
+        if (code[i] !== row[i]) { 
+            return false; 
+        };
+        i++;
+    }
+    return true;
+};
+
+export function colorContainsInCode(code: Color[], pegColor: Color) {
+    let result = false;
+    code.forEach(color => {
+        if (color === pegColor) {
+            result = true;
+        }
+    });
+    return result;
+};

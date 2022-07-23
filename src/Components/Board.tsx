@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Color } from './Color';
 import { initializeBoard, initializeCluesBoard } from './BoardInitializer';
-import { createCode } from './Code';
+import { colorContainsInCode, createCode, isCodeCorrect } from './Code';
 import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
@@ -44,7 +44,7 @@ const Board = () => {
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
 					newCluesBord[turn][index] = Color.Black;
-				} else if (colorContainsInCode(board[turn][index])) {
+				} else if (colorContainsInCode(code, board[turn][index])) {
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
@@ -54,7 +54,7 @@ const Board = () => {
 	};
 
 	const isGameOver = () => {
-		if (isCodeCorrect() && turn < totalRows ) {
+		if (isCodeCorrect(code, board[turn]) && turn < totalRows ) {
 			setModalTitle('Winner!');
 			setGameStatus(1);
 			return true;
@@ -64,27 +64,6 @@ const Board = () => {
 			return true;
 		}
 		return false;
-	};
-
-	const isCodeCorrect = () => {
-		let i = 0;
-		while (i < pegsInRow) {
-			if (code[i] !== board[turn][i]) { 
-				return false; 
-			};
-			i++;
-		}
-		return true;
-	};
-
-	const colorContainsInCode = (pegColor: Color) => {
-		let result = false;
-		code.forEach(color => {
-			if (color === pegColor) {
-				result = true;
-			}
-		});
-		return result;
 	};
 
 	useEffect(() => {
