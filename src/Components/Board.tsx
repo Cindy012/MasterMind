@@ -6,6 +6,7 @@ import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
+import { getGameInfo } from './View';
 
 const Board = () => {
 	const totalRows = 8;
@@ -22,6 +23,7 @@ const Board = () => {
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
 	const [modalTitle, setModalTitle] = useState<string>();
 	const [showModal, setShowModal] = useState<boolean>(false);
+	const [showGameInfoModal, setShowGameInfoModal] = useState<boolean>(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -179,6 +181,14 @@ const Board = () => {
 
 	return (
 		<Fragment>
+			<div className="mastermind__header__icons">
+				<button className="button__icon" onClick={ () => setShowGameInfoModal(true) }>
+					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
+				</button>
+				<button className="button__icon" onClick={ () => resetGame() }>
+					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+				</button>
+			</div>
 			<div className="mastermind__board-content">
 				<div className="board">{ boardView }</div>
 				<div className="board-clue">{ cluesBoardView }</div>
@@ -196,6 +206,13 @@ const Board = () => {
 				resetGame={ () => resetGame() }
             	hideCloseButton
             />
+			<Modal
+				title={ 'Mastermind game info' }
+				show={ showGameInfoModal }
+				setShowModal={ setShowGameInfoModal }
+				gameInfo={ getGameInfo() }
+				hideCloseButton
+			/>
 		</Fragment>
 	);
 };
