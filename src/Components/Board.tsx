@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Color } from './Color';
 import { initializeBoard, initializeCluesBoard } from './BoardInitializer';
-import { createCode } from './Code';
+import { colorContainsInCode, createCode, isCodeCorrect } from './Code';
 import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
+import { getGameInfo } from './View';
 
 const Board = () => {
 	const totalRows = 8;
@@ -22,6 +23,7 @@ const Board = () => {
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
 	const [modalTitle, setModalTitle] = useState<string>();
 	const [showModal, setShowModal] = useState<boolean>(false);
+	const [showGameInfoModal, setShowGameInfoModal] = useState<boolean>(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -42,7 +44,7 @@ const Board = () => {
 			code.forEach((color, index) => {
 				if (color === board[turn][index]) {
 					newCluesBord[turn][index] = Color.Black;
-				} else if (colorContainsInCode(board[turn][index])) {
+				} else if (colorContainsInCode(code, board[turn][index])) {
 					newCluesBord[turn][index] = Color.Red;
 				}
 			});
@@ -52,7 +54,7 @@ const Board = () => {
 	};
 
 	const isGameOver = () => {
-		if (isCodeCorrect() && turn < totalRows ) {
+		if (isCodeCorrect(code, board[turn]) && turn < totalRows ) {
 			setModalTitle('Winner!');
 			setGameStatus(1);
 			return true;
@@ -62,27 +64,6 @@ const Board = () => {
 			return true;
 		}
 		return false;
-	};
-
-	const isCodeCorrect = () => {
-		let i = 0;
-		while (i < pegsInRow) {
-			if (code[i] !== board[turn][i]) { 
-				return false; 
-			};
-			i++;
-		}
-		return true;
-	};
-
-	const colorContainsInCode = (pegColor: Color) => {
-		let result = false;
-		code.forEach(color => {
-			if (color === pegColor) {
-				result = true;
-			}
-		});
-		return result;
 	};
 
 	useEffect(() => {
@@ -179,6 +160,14 @@ const Board = () => {
 
 	return (
 		<Fragment>
+			<div className="mastermind__header__icons">
+				<button className="button__icon" onClick={ () => resetGame() }>
+					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+				</button>
+				<button className="button__icon" onClick={ () => setShowGameInfoModal(true) }>
+					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
+				</button>
+			</div>
 			<div className="mastermind__board-content">
 				<div className="board">{ boardView }</div>
 				<div className="board-clue">{ cluesBoardView }</div>
@@ -196,6 +185,13 @@ const Board = () => {
 				resetGame={ () => resetGame() }
             	hideCloseButton
             />
+			<Modal
+				title={ 'Mastermind game info' }
+				show={ showGameInfoModal }
+				setShowModal={ setShowGameInfoModal }
+				gameInfo={ getGameInfo() }
+				hideCloseButton
+			/>
 		</Fragment>
 	);
 };
