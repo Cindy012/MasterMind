@@ -1,8 +1,8 @@
 import confetti from 'canvas-confetti';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface ModalProps {
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowModal: Dispatch<SetStateAction<{ showGameStateModal: boolean; showGameInfoModal: boolean; }>>;
     hideCloseButton?: boolean;
     show: boolean;
     title: string | undefined;
@@ -17,20 +17,20 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
         if (resetGame) {
             setPlayConfetti(false);
             resetGame();
-            setShowModal(false);
+            setShowModal({ showGameStateModal: false, showGameInfoModal: false });
         }
     };
 
     const renderSwitch = (state: number | undefined) => {
-        if (state !== undefined) {
-            switch(state) {
-                case 1:
-                    return 'You win, play again!';
-                case 2:
-                    return 'You lose, next time better!';
-                default:
-                    return 'You did not give the code colors.';
-            }
+        switch(state) {
+            case 0:
+                return 'You did not give the code colors.';
+            case 1:
+                return 'You win, play again!';
+            case 2:
+                return 'You lose, next time better!';
+            default:
+                return null;
         }
     };
 
@@ -51,7 +51,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
             <div className={ gameInfo ? 'modal__content' : 'modal__content modal__content__small' }>
-                { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
+                { !hideCloseButton && <span onClick={() => setShowModal({ showGameStateModal: false, showGameInfoModal: false })} className="modal__close">&times;</span> }
                 <h2>{ title ? title : 'Something went wrong' }</h2> 
                 <p>{ renderSwitch(gameStatus) }</p>
                 { gameInfo && gameInfo }
@@ -59,7 +59,7 @@ const Modal:React.FC<ModalProps> = ({ title, setShowModal, show, hideCloseButton
                     { gameStatus !== 0 && !gameInfo ? (
                         <button className="modal__button" onClick={ () => playAgain() }>Play again!</button>
                     ) : null }
-                    <button className="modal__button" onClick={ () => setShowModal(false) }>Close</button>
+                    <button className="modal__button" onClick={ () => setShowModal({ showGameStateModal: false, showGameInfoModal: false }) }>Close</button>
                 </div>
             </div>
         </div>

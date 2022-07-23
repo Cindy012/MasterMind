@@ -22,8 +22,7 @@ const Board = () => {
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
 	const [modalTitle, setModalTitle] = useState<string>();
-	const [showModal, setShowModal] = useState<boolean>(false);
-	const [showGameInfoModal, setShowGameInfoModal] = useState<boolean>(false);
+	const [showModal, setShowModal] = useState({ showGameStateModal: false, showGameInfoModal: false });
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 
@@ -38,7 +37,7 @@ const Board = () => {
 	const checkCode = () => {
 		if (turn < totalRows && board[turn].includes(Color.White)) {
 			setModalTitle('Not yet');
-			setShowModal(true);
+			setShowModal({ showGameStateModal: true, showGameInfoModal: false })
 		} else if (turn < totalRows) {
 			let newCluesBord = cluesBord;
 			code.forEach((color, index) => {
@@ -49,7 +48,7 @@ const Board = () => {
 				}
 			});
 			setCluesBoard([...newCluesBord]);
-			isGameOver() ? setShowModal(true) : setTurn(turn + 1);
+			isGameOver() ? setShowModal({ showGameStateModal: true, showGameInfoModal: false })  : setTurn(turn + 1);
 		}
 	};
 
@@ -161,11 +160,11 @@ const Board = () => {
 	return (
 		<Fragment>
 			<div className="mastermind__header__icons">
-				<button className="button__icon" onClick={ () => setShowGameInfoModal(true) }>
-					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
-				</button>
 				<button className="button__icon" onClick={ () => resetGame() }>
 					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+				</button>
+				<button className="button__icon" onClick={ () => setShowModal({ showGameStateModal: false, showGameInfoModal: true }) }>
+					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
 				</button>
 			</div>
 			<div className="mastermind__board-content">
@@ -179,7 +178,7 @@ const Board = () => {
 			</div>
             <Modal
 				title={ modalTitle }
-                show={ showModal }
+                show={ showModal.showGameStateModal }
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
 				resetGame={ () => resetGame() }
@@ -187,8 +186,8 @@ const Board = () => {
             />
 			<Modal
 				title={ 'Mastermind game info' }
-				show={ showGameInfoModal }
-				setShowModal={ setShowGameInfoModal }
+				show={ showModal.showGameInfoModal }
+				setShowModal={ setShowModal }
 				gameInfo={ getGameInfo() }
 				hideCloseButton
 			/>
