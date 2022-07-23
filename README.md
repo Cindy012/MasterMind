@@ -19,5 +19,7 @@ MasterMind is a game whereby the user guesses the generated code. The user wins 
 The following sources that are used for this project:
 
 * Get random enum function: [NEWBEDEV](https://newbedev.com/how-to-get-a-random-enum-in-typescript)
-* Icon: [Flaticon](https://flaticon.com)
+* Icons from [Flaticon](https://flaticon.com): 
+    * [Freepik](https://www.flaticon.com/free-icon/information_545674?term=information&page=1&position=2&page=1&position=2&related_id=545674)
+    * 
 * Modal (mainly scss): [React.js Examples](https://reactjsexample.com/video-tutorial-make-a-modal-in-reactjs)
