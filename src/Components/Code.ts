@@ -1,3 +1,4 @@
+import { createRow } from "./BoardInitializer";
 import { Color } from "./Color";
 
 function randomEnum<T>(anEnum: T): T[keyof T] {
@@ -31,7 +32,7 @@ export function isCodeCorrect(code: Color[], row: Color[]) {
 };
 
 export function getGuessClues(code: Color[], guess: Color[]): Color[] {
-    let codeClues: Color[] = new Array(4).fill(Color.White);
+    let codeClues: Color[] = createRow(code.length);
     let guessCopy = [...guess];
     let i = 0;
     while (i < guess.length) {
