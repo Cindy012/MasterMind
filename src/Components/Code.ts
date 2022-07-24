@@ -43,12 +43,9 @@ export function getGuessClues(code: Color[], guess: Color[]): Color[] {
             let currentIndex = i;
             let loop = true;
             code.forEach((color, index) => {
-                if (color === guess[currentIndex]
-                    && !colorIsChecked(code, color, index, currentIndex)
-                    && codeClues[index] !== Color.Black
-                    && codeClues[index] !== Color.Red
-                    && currentIndex === index
-                    && loop) {
+                if (color === guess[currentIndex] 
+                    &&!colorIsChecked(code, color, index, currentIndex, codeClues)
+                    && currentIndex === index && loop) {
                     codeClues[currentIndex] = Color.Red;
                     loop = false;
                 }
@@ -59,14 +56,13 @@ export function getGuessClues(code: Color[], guess: Color[]): Color[] {
     return codeClues;
 };
 
-function colorIsChecked(code: Color[], color: Color, index: number, currentIndex: number): boolean {
+function colorIsChecked(code: Color[], color: Color, index: number, currentIndex: number, codeClues: Color[]): boolean {
     let i = 0;
     while (i < currentIndex) {
-        if (code[i] === color) {
+        if (code[i] === color && codeClues[i] !== Color.White) {
             return true;
         }
         i++;
     }
-    console.log(index + 'hihi');
     return false;
 }
