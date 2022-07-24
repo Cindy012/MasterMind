@@ -95,11 +95,14 @@ const Board = () => {
 			let colorList = [];
 			let colorOptions = Object.values(Color);
 			colorOptions.splice(6, 7); // rm black & white
+			let color;
 			while (colorOptions.length > 0) {
-				if (currentColor && currentColor === colorOptions[colorOptions.length - 1]) {
+				color = colorOptions[colorOptions.length - 1];
+				if (currentColor && currentColor === color) {
 					colorList.push(
 						<Peg
-							className={ colorOptions[colorOptions.length - 1] }
+							key={ color }
+							className={ color }
 							selectColor={ selectCurrentColor }
 							colorOption
 							colorOptionIsActive
@@ -108,7 +111,8 @@ const Board = () => {
 				} else {
 					colorList.push(
 						<Peg
-							className={ colorOptions[colorOptions.length - 1] }
+							key={ color }
+							className={ color }
 							selectColor={ selectCurrentColor } 
 							colorOption
 						/>
