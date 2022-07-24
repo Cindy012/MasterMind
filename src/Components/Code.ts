@@ -30,12 +30,43 @@ export function isCodeCorrect(code: Color[], row: Color[]) {
     return true;
 };
 
-export function colorContainsInCode(code: Color[], pegColor: Color) {
-    let result = false;
-    code.forEach(color => {
-        if (color === pegColor) {
-            result = true;
+export function getGuessClues(code: Color[], guess: Color[]): Color[] {
+    let codeClues: Color[] = new Array(4);
+    let guessCopy = [...guess];
+    let i = 0;
+    while (i < guess.length) {
+        if (code[i] === guess[i]) {
+            codeClues[i] = Color.Black;
+            guessCopy.splice(i, 1);
+        } else {
+            let currentIndex = i;
+            let loop = true;
+            console.log(code);
+            code.forEach((color, index) => {
+                if (color === guess[currentIndex]
+                    && !colorIsChecked(code, color, index, currentIndex)
+                    && codeClues[index] !== Color.Black
+                    && codeClues[index] !== Color.Red
+                    && currentIndex === index
+                    && loop) {
+                    codeClues[currentIndex] = Color.Red;
+                    loop = false;
+                }
+            });
         }
-    });
-    return result;
+        i++;
+    }
+    return codeClues;
 };
+
+function colorIsChecked(code: Color[], color: Color, index: number, currentIndex: number): boolean {
+    let i = 0;
+    while (i < currentIndex) {
+        if (code[i] === color) {
+            return true;
+        }
+        i++;
+    }
+    console.log(index + 'hihi');
+    return false;
+}

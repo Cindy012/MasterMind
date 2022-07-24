@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Color } from './Color';
 import { initializeBoard, initializeCluesBoard } from './BoardInitializer';
-import { colorContainsInCode, createCode, isCodeCorrect } from './Code';
+import { createCode, getGuessClues, isCodeCorrect } from './Code';
 import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
@@ -37,13 +37,7 @@ const Board = () => {
 			openModal();
 		} else if (turn < totalRows) {
 			let newCluesBoard = board.clueBoard;
-			code.forEach((color, index) => {
-				if (color === board.gameBoard[turn][index]) {
-					newCluesBoard[turn][index] = Color.Black;
-				} else if (colorContainsInCode(code, board.gameBoard[turn][index])) {
-					newCluesBoard[turn][index] = Color.Red;
-				}
-			});
+			newCluesBoard[turn] = getGuessClues(code, board.gameBoard[turn]);
 			setBoard({ gameBoard: board.gameBoard, clueBoard: [...newCluesBoard] });
 			isGameOver() ? openModal() : setTurn(turn + 1);
 		}
