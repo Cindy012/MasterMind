@@ -12,12 +12,6 @@ export enum Color {
     White = "white"
 };
 
-function randomEnum<T>(anEnum: T): T[keyof T] {
-    const enumValues = (Object.values(anEnum) as unknown) as T[keyof T][];
-    const randomIndex = Math.floor(Math.random() * enumValues.length);
-    return enumValues[randomIndex];
-};
-
 export function initializeBoard() {
     let boardList:Array<Color>[] = [];
     for (let i = 0; i < totalRows; i++) {
@@ -33,6 +27,12 @@ export function createRow() {
     }
     return row;
 }
+
+function randomEnum<T>(anEnum: T): T[keyof T] {
+    const enumValues = (Object.values(anEnum) as unknown) as T[keyof T][];
+    const randomIndex = Math.floor(Math.random() * enumValues.length);
+    return enumValues[randomIndex];
+};
 
 export function createCode() {
     let code:Color[] = [];
@@ -59,38 +59,37 @@ export function isCodeCorrect(code: Color[], row: Color[]) {
     return true;
 };
 
-export function getGuessClues(code: Color[], guess: Color[]): Color[] {
-    let codeClues: Color[] = createRow();
-    let guessCopy = [...guess];
+function colorIsInCode(code: Color[], color: Color) {
     let i = 0;
-    while (i < guess.length) {
-        if (code[i] === guess[i]) {
-            codeClues[i] = Color.Black;
-            guessCopy.splice(i, 1);
-        } else {
-            let currentIndex = i;
-            let loop = true;
-            code.forEach((color, index) => {
-                if (color === guess[currentIndex] 
-                    &&!colorIsChecked(code, color, index, currentIndex, codeClues)
-                    && currentIndex === index && loop) {
-                    codeClues[currentIndex] = Color.Red;
-                    loop = false;
-                }
-            });
-        }
-        i++;
-    }
-    return codeClues;
-};
-
-function colorIsChecked(code: Color[], color: Color, index: number, currentIndex: number, codeClues: Color[]): boolean {
-    let i = 0;
-    while (i < currentIndex) {
-        if (code[i] === color && codeClues[i] !== Color.White) {
+    while (i < code.length) {
+        if (code[i] === color) {
             return true;
         }
         i++;
     }
     return false;
+};
+
+export function getClues(code: Color[], guess: Color[]): Color[] {
+    let codeClues: Color[] = createRow();
+    // Made copies of code and guess to prevent that the original arrays won't be overwritten
+    let codeCopy = [...code];
+    let guessCopy = [...guess];
+    let i = 0;
+    while (i < guess.length) {
+        if (codeCopy[i] === guessCopy[i]) {
+            codeClues[i] = Color.Black;
+            codeCopy[i] = guessCopy[i] = Color.White; // it prevents from being checked again for if color contains in code later.
+        }
+        i++;
+    }
+
+    while (i > 0) {
+        if (guessCopy[i] !== Color.White && colorIsInCode(codeCopy, guessCopy[i])){
+            codeClues[i] = Color.Red;
+            codeCopy[i] = guessCopy[i] = Color.White;
+        }
+        i--;
+    }
+    return codeClues;
 };

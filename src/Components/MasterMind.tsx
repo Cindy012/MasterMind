@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
-import { Color, createCode, getGuessClues, initializeBoard, isCodeCorrect, pegsInRow, totalRows } from "../ts/Game";
+import { Color, createCode, getClues, initializeBoard, isCodeCorrect, pegsInRow, totalRows } from "../ts/Game";
 import CluePeg from "./CluePeg";
 import Peg from "./Peg";
 import Row from "./Row";
@@ -34,7 +34,7 @@ const MasterMind = () => {
 			openModal();
 		} else if (turn < totalRows) {
 			let newCluesBoard = board.clueBoard;
-			newCluesBoard[turn] = getGuessClues(code, board.gameBoard[turn]);
+			newCluesBoard[turn] = getClues(code, board.gameBoard[turn]);
 			setBoard({ gameBoard: board.gameBoard, clueBoard: [...newCluesBoard] });
 			isGameOver() ? openModal() : setTurn(turn + 1);
 		}
@@ -167,10 +167,10 @@ const MasterMind = () => {
 				</button>
 			</div>
 			<Board
-				boardView={boardView}
-				cluesBoardView={cluesBoardView}
-				colorPegOptionsView={colorPegOptionsView}
-				checkCode={checkCode} 
+				boardView={ boardView }
+				cluesBoardView={ cluesBoardView }
+				colorPegOptionsView={ colorPegOptionsView }
+				checkCode={ checkCode } 
 				turn={ turn }
 			/>
             <Modal
