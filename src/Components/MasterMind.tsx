@@ -153,8 +153,7 @@ const MasterMind = () => {
 	}, [board.clueBoard, turn]);
 
 	return (
-		<Fragment>
-			<div className="mastermind">
+		<div className="mastermind">
 			<div className="mastermind__header">
 				<h1>MASTERMIND</h1>
 			</div>
@@ -180,8 +179,7 @@ const MasterMind = () => {
 				resetGame={ () => resetGame() }
             	hideCloseButton
             />
-			</div>
-		</Fragment>
+		</div>
 	);
 };
 
