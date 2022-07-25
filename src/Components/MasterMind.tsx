@@ -91,7 +91,7 @@ const MasterMind = () => {
 		function showColorPegOptions() {
 			let colorList = [];
 			let colorOptions = Object.values(Color);
-			colorOptions.splice(6, 7); // rm black & white
+			colorOptions.splice(6, 7); // Removes Color.Black & Color.White from colorOptions
 			let color;
 			while (colorOptions.length > 0) {
 				color = colorOptions[colorOptions.length - 1];

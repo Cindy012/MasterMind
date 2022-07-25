@@ -79,7 +79,7 @@ export function getClues(code: Color[], guess: Color[]): Color[] {
     while (i < guess.length) {
         if (codeCopy[i] === guessCopy[i]) {
             codeClues[i] = Color.Black;
-            codeCopy[i] = guessCopy[i] = Color.White; // it prevents from being checked again for if color contains in code later.
+            codeCopy[i] = guessCopy[i] = Color.White; // It prevents from being checked again for if color contains in code later.
         }
         i++;
     }
