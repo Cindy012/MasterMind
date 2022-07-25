@@ -1,15 +1,43 @@
-import { createRow } from "./BoardInitializer";
-import { Color } from "./Color";
+export const totalRows = 8;
+export const pegsInRow = 4;
+
+export enum Color {
+    Purple = "purple",
+    Blue = "blue",
+    Green = "green",
+    Yellow = "yellow",
+    Orange = "orange",
+    Red = "red",
+    Black = "black",
+    White = "white"
+};
 
 function randomEnum<T>(anEnum: T): T[keyof T] {
     const enumValues = (Object.values(anEnum) as unknown) as T[keyof T][];
     const randomIndex = Math.floor(Math.random() * enumValues.length);
     return enumValues[randomIndex];
-  }
+};
 
-export function createCode(pegs: number) {
+export function initializeBoard() {
+    let boardList:Array<Color>[] = [];
+    for (let i = 0; i < totalRows; i++) {
+        boardList.push(createRow());
+    }
+    return boardList;
+};
+
+export function createRow() {
+    let row = new Array<Color>();
+    for (let j = 0; j < pegsInRow; j++) {
+        row.push(Color.White);
+    }
+    return row;
+}
+
+export function createCode() {
     let code:Color[] = [];
     let color;
+    let pegs = pegsInRow;
     while (pegs > 0 ) {
         color = randomEnum(Color);
         if (color !== Color.Black && color !== Color.White) {
@@ -32,7 +60,7 @@ export function isCodeCorrect(code: Color[], row: Color[]) {
 };
 
 export function getGuessClues(code: Color[], guess: Color[]): Color[] {
-    let codeClues: Color[] = createRow(code.length);
+    let codeClues: Color[] = createRow();
     let guessCopy = [...guess];
     let i = 0;
     while (i < guess.length) {
@@ -65,4 +93,4 @@ function colorIsChecked(code: Color[], color: Color, index: number, currentIndex
         i++;
     }
     return false;
-}
+};

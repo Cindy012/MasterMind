@@ -1,20 +1,17 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Color } from './Color';
-import { initializeBoard } from './BoardInitializer';
-import { createCode, getGuessClues, isCodeCorrect } from './Code';
+import { Color } from '../ts/Game';
+import { pegsInRow, totalRows, createCode, getGuessClues, initializeBoard, isCodeCorrect } from '../ts/Game';
 import Peg from './Peg';
 import Row from './Row';
 import CluePeg from './CluePeg';
 import Modal from '../Modal/Modal';
 
 const Board = () => {
-	const totalRows = 8;
-	const pegsInRow = 4;
 	const [turn, setTurn] = useState<number>(0);
-	const [code, setCode] = useState<Color[]>(createCode(pegsInRow));
+	const [code, setCode] = useState<Color[]>(createCode());
 	const [currentColor, setCurrentColor] = useState<Color>();
 	const [gameStatus, setGameStatus] = useState<number>(0); // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
-	const [board, setBoard] = useState({ gameBoard: initializeBoard(totalRows, pegsInRow), clueBoard: initializeBoard(totalRows, pegsInRow)});
+	const [board, setBoard] = useState({ gameBoard: initializeBoard(), clueBoard: initializeBoard()});
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
@@ -25,9 +22,9 @@ const Board = () => {
 	const openModal = () => setShowModal(true);
 
 	const resetGame = () => {
-		setCode(createCode(pegsInRow));
+		setCode(createCode());
 		setTurn(0);
-		setBoard({ gameBoard: initializeBoard(totalRows, pegsInRow), clueBoard: initializeBoard(totalRows, pegsInRow) });
+		setBoard({ gameBoard: initializeBoard(), clueBoard: initializeBoard() });
 		setGameStatus(1);
 	};
 
