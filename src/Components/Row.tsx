@@ -1,4 +1,4 @@
-import { Color } from "./Color";
+import { Color } from "../ts/Game";
 import Peg from "./Peg";
 
 interface RowProps {
