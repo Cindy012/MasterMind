@@ -50,7 +50,7 @@ const Modal:React.FC<ModalProps> = ({ setShowModal, show, hideCloseButton, reset
        
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
-            <div className='modal__content'>
+            <div className={ `modal__content ${gameStatus !== 0 ? 'small' : null}` }>
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title[gameStatus] }</h2> 
                 { gameStatus === 0 ? getGameInfo() : <p>{ text[gameStatus] }</p> }
