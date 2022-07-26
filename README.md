@@ -22,4 +22,5 @@ The following sources are used for this project:
 * Icons from [Flaticon](https://flaticon.com): 
     * [Freepik](https://www.flaticon.com/free-icon/information_545674?term=information&page=1&position=2&page=1&position=2&related_id=545674)
     * [Komar Dews](https://www.flaticon.com/premium-icon/play-again_6046907?term=play%20again&page=1&position=4&page=1&position=4&related_id=6046907&origin=search)
+    * [Fajrul Fitrianto](https://www.flaticon.com/premium-icon/flags_4129143?term=white%20flag&page=1&position=1&page=1&position=1&related_id=4129143&origin=search)
 * Modal (mainly scss): [React.js Examples](https://reactjsexample.com/video-tutorial-make-a-modal-in-reactjs)

@@ -1,10 +1,13 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import { Color, createCode, getClues, initializeBoard, isCodeCorrect, pegsInRow, totalRows } from "../ts/Game";
 import CluePeg from "./CluePeg";
 import Peg from "./Peg";
 import Row from "./Row";
 import Board from "./Board";
+import InformationIcon from "../image/information.png";
+import playAgainIcon from "../image/play-again.png";
+import giveUpIcon from "../image/give-up.png";
 
 const MasterMind = () => {
 	const [turn, setTurn] = useState<number>(0);
@@ -158,11 +161,14 @@ const MasterMind = () => {
 				<h1>MASTERMIND</h1>
 			</div>
 			<div className="mastermind__header__icons">
+				<button className="button__icon" onClick={ () => openGameInfoModal() }>
+					<img className="image__icon" src={ giveUpIcon } alt=""/>
+				</button>
 				<button className="button__icon" onClick={ () => resetGame() }>
-					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+					<img className="image__icon" src={ playAgainIcon } alt=""/>
 				</button>
 				<button className="button__icon" onClick={ () => openGameInfoModal() }>
-					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
+					<img className="image__icon" src={ InformationIcon } alt=""/>
 				</button>
 			</div>
 			<Board
