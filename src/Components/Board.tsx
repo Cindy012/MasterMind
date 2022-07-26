@@ -1,5 +1,4 @@
-import { totalRows } from "../ts/Game";
-
+import { totalRows } from "../ts/Board";
 
 interface BoardProps {
     boardView: JSX.Element[] | undefined;

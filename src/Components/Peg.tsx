@@ -1,4 +1,4 @@
-import { Color } from "../ts/Game";
+import { Color } from "../ts/Color";
 
 interface PegProps {
     rowId?: number;

@@ -1,3 +1,6 @@
+import { Color } from "../ts/Color";
+import Peg from "./Peg";
+
 export function getGameInfo(): JSX.Element {
     return (
         <article className="modal-content">
@@ -7,3 +10,21 @@ export function getGameInfo(): JSX.Element {
         </article>
     );
 };  
+
+export function showCodeAnswer(code: Color[]): JSX.Element {
+    const fillRow = () => {
+        const rowList:JSX.Element[] = [];
+        for (let i = 0; i < code.length; i++) {
+            rowList.push(
+                <Peg key={ i } className={ code[i] } />
+            );
+        }
+        return rowList;
+    };
+
+    return (
+	<div className="code-answer">
+        { fillRow() }
+    </div>
+    );
+};

@@ -1,6 +1,6 @@
-import confetti from 'canvas-confetti';
 import { useEffect, useState } from 'react';
 import { getGameInfo } from '../Components/View';
+import confetti from 'canvas-confetti';
 
 interface ModalProps {
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
