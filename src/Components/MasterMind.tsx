@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import Modal from "../Modal/Modal";
 import { Color, createCode, getClues, initializeBoard, isCodeCorrect, pegsInRow, totalRows } from "../ts/Game";
-import CluePeg from "./CluePeg";
-import Peg from "./Peg";
-import Row from "./Row";
+
+// Components
 import Board from "./Board";
+import Row from "./Row";
+import Peg from "./Peg";
+import CluePeg from "./CluePeg";
+import Modal from "../Modal/Modal";
+
+// Images
+import playAgain from "../image/play-again.png";
+import information from "../image/information.png";
 
 const MasterMind = () => {
 	const [turn, setTurn] = useState<number>(0);
@@ -159,10 +165,10 @@ const MasterMind = () => {
 			</div>
 			<div className="mastermind__header__icons">
 				<button className="button__icon" onClick={ () => resetGame() }>
-					<img className="image__icon" src={ require('../image/play-again.png') } alt=""/>
+					<img className="image__icon" src={ playAgain } alt=""/>
 				</button>
 				<button className="button__icon" onClick={ () => openGameInfoModal() }>
-					<img className="image__icon" src={ require('../image/information.png') } alt=""/>
+					<img className="image__icon" src={ information } alt=""/>
 				</button>
 			</div>
 			<Board
