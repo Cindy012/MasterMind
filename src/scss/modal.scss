@@ -28,6 +28,14 @@
         visibility: hidden;
         transform: translateY(-100px);
         padding: 16px 20px;
+
+        &.small {
+            width: 350px;
+        }
+
+        p {
+            text-align: left;
+        }
     }
     
     &__footer {
@@ -82,14 +90,20 @@
     }
 }
 
-.modal-content {
-    p { text-align: justify;}
+@media (max-width: 700px) {
+	.modal {    
+		&__content {
+            width: 75%;
+		}
+	}
 }
 
-@media (max-width: 600px) {
-    .modal {    
-        &__content {
-            width: 450px;
-        }
-    }
+@media (max-width: 450px) {
+	.modal {    
+		&__content {
+            &.small {
+                width: 70%;
+            }
+		}
+	}
 }

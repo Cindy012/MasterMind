@@ -14,7 +14,7 @@ const GiveUpModal:React.FC<GiveUpModalProps> = ({ setShowModal, show, hideCloseB
 
     return (
         <div className={`modal ${show ? 'active' : ''}`}>
-            <div className='modal__content'>
+            <div className='modal__content small'>
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title }</h2> 
                 <p>Are you sure to give up?</p>

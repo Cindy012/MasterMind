@@ -15,8 +15,10 @@ $border-2: 2px solid $color-black;
 
 body {
 	margin: auto;
-	width: 80%;
+	width: 60%;
 	font-family: Verdana, sans-serif;
+	background-color: #3b81e4;
+	margin-top: 40px;
 }
 
 .flex {
@@ -40,8 +42,11 @@ body {
 
 .mastermind {
 	@extend .flex-column;
-	padding-bottom: 10px;
 	text-align: center;
+	background-color: $color-white;
+	border-radius: 15px;
+	padding: 0px 10px 20px 10px;
+	border: $border-2;
 
 	section {
 		padding-bottom: 5px;
@@ -64,6 +69,7 @@ body {
 
 	&__side {
 		justify-content: flex-start;
+		padding-right: 0px;
 
 		h2 {
 			margin: 5px;
@@ -82,8 +88,7 @@ body {
 		@extend .flex;
 		gap: 10px;
 		padding: 10px;
-		border: $border-2;
-		border-color: $color-grey;
+		border: 2px solid $color-grey;
 		border-radius: 3px;
 		margin-bottom: 10px;
 	}
@@ -114,8 +119,7 @@ body {
 .cluerow {  
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	align-items: center;
-	justify-content: center;
+	justify-items: center;
 	gap: 3px;
 	padding: 5px 0px;
 }
@@ -171,7 +175,6 @@ body {
 
 	&__white {
 		background-color: $color-white;
-		border: $border-1;
 	}
 	
 	&__black {
@@ -242,20 +245,6 @@ body {
 				margin: 11px 10px;
 				gap: 10px;
 			}
-		}
-	}
-
-	.modal {    
-        &__content {
-            width: 300px;
-        }
-    }
-}
-
-@media (max-width: 300px) {
-	.modal {    
-		&__content {
-			width: 200px;
 		}
 	}
 }
