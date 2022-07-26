@@ -9,7 +9,7 @@ import { Color } from "../ts/Color";
 import Board from "./Board";
 import CluePeg from "./CluePeg";
 import GiveUpModal from "../Modal/GiveUpModal";
-import Modal from "../Modal/Modal";
+import Modal from "../Modal/Modal/Modal";
 import Peg from "./Peg";
 import Row from "./Row";
 import { showCodeAnswer } from "./View";

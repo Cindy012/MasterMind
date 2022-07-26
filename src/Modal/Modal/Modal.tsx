@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getGameInfo } from '../Components/View';
+import { getGameInfo } from '../../Components/View';
 import confetti from 'canvas-confetti';
 
 interface ModalProps {
@@ -49,7 +49,7 @@ const Modal:React.FC<ModalProps> = ({ setShowModal, show, hideCloseButton, reset
     },[playConfetti]);
        
     return (
-        <div className={`modal ${show ? 'active' : ''}`}>
+        <div data-testid="modal" className={`modal ${show ? 'active' : ''}`}>
             <div className={ `modal__content ${gameStatus !== 0 ? 'small' : null}` }>
                 { !hideCloseButton && <span onClick={() => setShowModal(false)} className="modal__close">&times;</span> }
                 <h2>{ title[gameStatus] }</h2> 
