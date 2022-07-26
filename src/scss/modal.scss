@@ -28,13 +28,11 @@
         visibility: hidden;
         transform: translateY(-100px);
         padding: 16px 20px;
+        text-align: left;
 
         &.small {
             width: 350px;
-        }
-
-        p {
-            text-align: left;
+            text-align: center;
         }
     }
     
@@ -90,19 +88,13 @@
     }
 }
 
-@media (max-width: 700px) {
-	.modal {    
+@media (max-width: 725px) {
+	.modal {
 		&__content {
             width: 75%;
-		}
-	}
-}
 
-@media (max-width: 450px) {
-	.modal {    
-		&__content {
             &.small {
-                width: 70%;
+                width: 60%;
             }
 		}
 	}
