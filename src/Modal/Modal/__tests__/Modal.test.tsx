@@ -5,7 +5,7 @@ import Modal from '../Modal';
 import { render } from 'react-dom';
 
 describe('Modal', () => {
-    it('renders the gameInfo Modal successfully and is not active', () => {
+    it('renders the (gameInfo) Modal successfully and is not active', () => {
         const setStateMocked = jest.fn();
         const useStateMock: any = (useState: any) => [useState, setStateMocked];
         jest.spyOn(React, 'useState').mockImplementation(useStateMock);
@@ -16,14 +16,14 @@ describe('Modal', () => {
         expect(container).toMatchSnapshot();
     });
 
-    // it('renders the gameInfo Modal successfully and is active', () => {
-    //     const setStateMocked = jest.fn();
-    //     const useStateMock: any = (useState: any) => [useState, setStateMocked];
-    //     jest.spyOn(React, 'useState').mockImplementation(useStateMock);
-    //     const [showModalMock, setShowModalMock] = useStateMock(true);
+    it('renders the (gameInfo) Modal successfully and is active', () => {
+        const setStateMocked = jest.fn();
+        const useStateMock: any = (useState: any) => [useState, setStateMocked];
+        jest.spyOn(React, 'useState').mockImplementation(useStateMock);
+        const [showModalMock, setShowModalMock] = useStateMock(true);
 
-    //     const container = document.createElement('div');
-    //     render(<Modal setShowModal={ setShowModalMock } show={ showModalMock } gameStatus={ 0 } />, container);
-    //     expect(container).toMatchSnapshot();
-    // });
+        const container = document.createElement('div');
+        render(<Modal setShowModal={ setShowModalMock } show={ showModalMock } gameStatus={ 0 } />, container);
+        expect(container).toMatchSnapshot();
+    });
 });
