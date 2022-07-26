@@ -1,10 +1,4 @@
 // scss variables
-$color-red: #e43b3b;
-$color-orange: #e48a3b;
-$color-yellow: #e4de3b;
-$color-green: #3be45d;
-$color-blue: #3b81e4;
-$color-purple: #8d3be4;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-light-grey: #e7e7e7;
@@ -14,8 +8,10 @@ $border-2: 2px solid $color-black;
 
 body {
 	margin: auto;
-	width: 80%;
+	width: 60%;
 	font-family: Verdana, sans-serif;
+	background-color: #5e80ae;
+	margin-top: 40px;
 }
 
 .flex {
@@ -39,8 +35,11 @@ body {
 
 .mastermind {
 	@extend .flex-column;
-	padding-bottom: 10px;
 	text-align: center;
+	background-color: $color-white;
+	border-radius: 15px;
+	padding: 10px 1px 20px 11px;
+	border: $border-2;
 
 	section {
 		padding-bottom: 5px;
@@ -59,10 +58,15 @@ body {
 			justify-content: center;
 			margin: 0px 10px;
 		}
+
+		h1 {
+			margin:10px;
+		}
 	}
 
 	&__side {
 		justify-content: flex-start;
+		padding-right: 0px;
 
 		h2 {
 			margin: 5px;
@@ -77,135 +81,140 @@ body {
 		}
 	}
 
-}
-
-.board {
-	@extend .board-border;
-	div:last-child {
-		border: none;
-		margin-bottom: 0px;
-		padding-bottom: 0px;
+	.board {
+		@extend .board-border;
+		div:last-child {
+			border: none;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+		}
 	}
-}
 
-.board-clue {
-	@extend .board-border;
-	border-left: 0px;
-	width: 50px;
-}
+	.board-clue {
+		@extend .board-border;
+		border-left: 0px;
+		width: 50px;
+	}
 
-.row {  
-	@extend .flex;
-	gap: 10px;
-	padding: 6px 0px;
-	border-bottom: $border-2;
-}
-
-.cluerow {  
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	align-items: center;
-	justify-content: center;
-	gap: 3px;
-	padding: 5px 0px;
-}
-
-.peg {
-	height: 40px;
-	width: 40px;
-	border-radius: 50%;
-	background-color: $color-white;
-	display: inline-block;
-	border: $border-1;
-
-	&__active {
-		cursor: pointer;
-
-		&:hover, &:active {
+	.code-answer {
+		@extend .flex;
+		gap: 10px;
+		padding: 10px;
+		border: 2px solid #808080;
+		border-radius: 3px;
+		margin-bottom: 10px;
+	}
+	
+	.row {  
+		@extend .flex;
+		gap: 10px;
+		padding: 6px 0px;
+		border-bottom: $border-2;
+	}
+	
+	.cluerow {  
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		justify-items: center;
+		gap: 3px;
+		padding: 5px 0px;
+	}
+	
+	.peg {
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		display: inline-block;
+		border: $border-1;
+	
+		&__active {
+			cursor: pointer;
+	
+			&:hover, &:active {
+				border: $border-2; 
+			}
+		}
+	
+		&__selected {
 			border: $border-2; 
 		}
-	}
-
-	&__selected {
-		border: $border-2; 
-	}
-
-	&.clue {
-		height: 20px;
-		width: 20px;
-	}
-
-	&__red {
-		background-color: $color-red;
-	}
 	
-	&__orange {
-		background-color: $color-orange;
-	}
-
-	&__yellow {
-		background-color: $color-yellow;
-	}
-
-	&__green {
-		background-color: $color-green;
-	}
+		&.clue {
+			height: 20px;
+			width: 20px;
+		}
 	
-	&__blue {
-		background-color: $color-blue;
-	}
+		&__red {
+			background-color: #e43b3b;
+		}
+		
+		&__orange {
+			background-color: #e48a3b;
+		}
 	
-	&__purple {
-		background-color: $color-purple;
-	}
+		&__yellow {
+			background-color: #e4de3b;
+		}
 
-	&__white {
-		background-color: $color-white;
-		border: $border-1;
-	}
+		&__green {
+			background-color: #3be45d;
+		}
+		
+		&__blue {
+			background-color: #3b81e4;
+		}
+		
+		&__purple {
+			background-color: #8d3be4;
+		}
 	
-	&__black {
-		background-color: $color-black;
-	}
-}
-
-.button {
-	border: none;
-	padding: 15px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	border-radius: 12px;
-
-	&__check {
-		background-color: $color-light-grey;
-		margin: 10px;
-
-		&:hover {
-			border: 2px solid $color-light-grey;
+		&__white {
 			background-color: $color-white;
-			padding: 13px;
+		}
+		
+		&__black {
+			background-color: $color-black;
 		}
 	}
-
-	&__icon {
+	
+	.button {
 		border: none;
-		height: 20px;
-		width: fit-content;
-		margin-bottom: 10px;
-		background-color: $color-white;
+		padding: 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
 		cursor: pointer;
+		border-radius: 12px;
+	
+		&__check {
+			background-color: $color-light-grey;
+			margin: 10px;
+	
+			&:hover {
+				border: 2px solid $color-light-grey;
+				background-color: $color-white;
+				padding: 13px;
+			}
+		}
+	
+		&__icon {
+			border: none;
+			height: 20px;
+			width: fit-content;
+			margin-bottom: 10px;
+			background-color: $color-white;
+			cursor: pointer;
+		}
 	}
-}
-
-.image {
-	&__icon {
-		width: 20px;
-		height: 20px;
+	
+	.image {
+		&__icon {
+			height: 20px;
+		}
 	}
+	
 }
 
 @media (max-width: 450px) {
@@ -223,30 +232,10 @@ body {
 			width: 15px;
 		}
     }
-
-	.mastermind {
-		&__side {
-			.color-peg-options {
-				@extend .flex-column;
-				border: $border-2;
-				padding: 8px;
-				margin: 11px 10px;
-				gap: 10px;
-			}
-		}
-	}
-
-	.modal {    
-        &__content {
-            width: 300px;
-        }
-    }
 }
 
-@media (max-width: 300px) {
-	.modal {    
-		&__content {
-			width: 200px;
-		}
+@media (min-width: 450px) and (max-width: 670px) {
+	body {
+		width: min-content;
 	}
 }

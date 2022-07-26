@@ -28,6 +28,12 @@
         visibility: hidden;
         transform: translateY(-100px);
         padding: 16px 20px;
+        text-align: left;
+
+        &.small {
+            width: 350px;
+            text-align: center;
+        }
     }
     
     &__footer {
@@ -82,14 +88,14 @@
     }
 }
 
-.modal-content {
-    p { text-align: justify;}
-}
+@media (max-width: 725px) {
+	.modal {
+		&__content {
+            width: 75%;
 
-@media (max-width: 600px) {
-    .modal {    
-        &__content {
-            width: 450px;
-        }
-    }
+            &.small {
+                width: 60%;
+            }
+		}
+	}
 }

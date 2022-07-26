@@ -1,31 +1,46 @@
 import { useEffect, useState } from "react";
-import { Color, createCode, getClues, initializeBoard, isCodeCorrect, pegsInRow, totalRows } from "../ts/Game";
+
+// Ts
+import { createCode, getClues, isCodeCorrect } from "../ts/Game";
+import { initializeBoard, pegsInRow, totalRows } from "../ts/Board";
+import { Color } from "../ts/Color";
 
 // Components
 import Board from "./Board";
-import Row from "./Row";
-import Peg from "./Peg";
 import CluePeg from "./CluePeg";
+import GiveUpModal from "../Modal/GiveUpModal";
 import Modal from "../Modal/Modal";
+import Peg from "./Peg";
+import Row from "./Row";
+import { showCodeAnswer } from "./View";
 
 // Images
-import playAgain from "../image/play-again.png";
-import information from "../image/information.png";
+import giveUpIcon from "../image/give-up.png";
+import informationIcon from "../image/information.png";
+import playAgainIcon from "../image/play-again.png";
 
 const MasterMind = () => {
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode());
 	const [currentColor, setCurrentColor] = useState<Color>();
-	const [gameStatus, setGameStatus] = useState<number>(0); // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
+	const [gameStatus, setGameStatus] = useState<number>(1); // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
 	const [board, setBoard] = useState({ gameBoard: initializeBoard(), clueBoard: initializeBoard()});
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
 	const [colorPegOptionsView, setColorPegOptionsView] = useState<JSX.Element[]>();
 	const [showModal, setShowModal] = useState(false);
+	const [showGiveUpModal, setShowGiveUpModal] = useState(false);
 
 	const selectCurrentColor = (color: Color) => setCurrentColor(color);
 	
 	const openModal = () => setShowModal(true);
+
+	function openGameInfoModal() {
+		setGameStatus(0);
+		openModal();
+	}
+
+	const stopGame = () => setGameStatus(3);
 
 	const resetGame = () => {
 		setCode(createCode());
@@ -35,14 +50,16 @@ const MasterMind = () => {
 	};
 
 	const checkCode = () => {
-		if (turn < totalRows && board.gameBoard[turn].includes(Color.White)) {
-			setGameStatus(1);
-			openModal();
-		} else if (turn < totalRows) {
-			let newCluesBoard = board.clueBoard;
-			newCluesBoard[turn] = getClues(code, board.gameBoard[turn]);
-			setBoard({ gameBoard: board.gameBoard, clueBoard: [...newCluesBoard] });
-			isGameOver() ? openModal() : setTurn(turn + 1);
+		if (gameStatus !== 2 && gameStatus !== 3) {
+			if (turn < totalRows && board.gameBoard[turn].includes(Color.White)) {
+				setGameStatus(1);
+				openModal();
+			} else if (turn < totalRows) {
+				let newCluesBoard = board.clueBoard;
+				newCluesBoard[turn] = getClues(code, board.gameBoard[turn]);
+				setBoard({ gameBoard: board.gameBoard, clueBoard: [...newCluesBoard] });
+				isGameOver() ? openModal() : setTurn(turn + 1);
+			}
 		}
 	};
 
@@ -57,14 +74,9 @@ const MasterMind = () => {
 		return false;
 	};
 
-	function openGameInfoModal() {
-		setGameStatus(0);
-		openModal();
-	}
-
 	useEffect(() => {
 		const colorPeg = (rowId: number, pegId: number) => {
-			if (rowId === turn && board.gameBoard && currentColor) {
+			if (rowId === turn && board.gameBoard && currentColor && gameStatus !== 2 && gameStatus !== 3) {
 				let newBoard = board.gameBoard;
 				newBoard[rowId][pegId] = currentColor;
 				setBoard({ gameBoard: [...newBoard], clueBoard: board.clueBoard });
@@ -91,7 +103,7 @@ const MasterMind = () => {
 		};
 
 		fillViewBoard();
-	}, [board.clueBoard, board.gameBoard, currentColor, turn]);
+	}, [board.clueBoard, board.gameBoard, currentColor, gameStatus, turn]);
 
 	useEffect(() => {
 		function showColorPegOptions() {
@@ -125,7 +137,6 @@ const MasterMind = () => {
 			}
 			setColorPegOptionsView([...colorList]);
 		};
-
 		showColorPegOptions();
 	}, [currentColor]);
 
@@ -164,13 +175,17 @@ const MasterMind = () => {
 				<h1>MASTERMIND</h1>
 			</div>
 			<div className="mastermind__header__icons">
+				<button className="button__icon" onClick={ () => setShowGiveUpModal(true) }>
+					<img className="image__icon" src={ giveUpIcon } alt=""/>
+				</button>
 				<button className="button__icon" onClick={ () => resetGame() }>
-					<img className="image__icon" src={ playAgain } alt=""/>
+					<img className="image__icon" src={ playAgainIcon } alt=""/>
 				</button>
 				<button className="button__icon" onClick={ () => openGameInfoModal() }>
-					<img className="image__icon" src={ information } alt=""/>
+					<img className="image__icon" src={ informationIcon } alt=""/>
 				</button>
 			</div>
+			{ gameStatus === 3 ? showCodeAnswer(code) : null }
 			<Board
 				boardView={ boardView }
 				cluesBoardView={ cluesBoardView }
@@ -182,9 +197,16 @@ const MasterMind = () => {
                 show={ showModal}
                 setShowModal={ setShowModal }
 				gameStatus={ gameStatus }
-				resetGame={ () => resetGame() }
+				resetGame={ resetGame }
             	hideCloseButton
             />
+			<GiveUpModal
+				title='Stop Game'
+				show={ showGiveUpModal }
+				setShowModal={ setShowGiveUpModal }
+				showAnswer={ stopGame }
+				hideCloseButton
+			/>
 		</div>
 	);
 };
