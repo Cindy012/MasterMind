@@ -4,7 +4,7 @@
 
 MasterMind is a game whereby the user guesses the generated code. The user wins if the code is correct within (in this case) 8 attempts.
 
-![alt text](https://github.com/Cindy012/MasterMind/blob/main/Mastermind-board.png "Mastermind board")
+<img src="https://github.com/Cindy012/MasterMind/blob/main/Mastermind-board.png" width="350" />
 
 ## Run this project local
 
