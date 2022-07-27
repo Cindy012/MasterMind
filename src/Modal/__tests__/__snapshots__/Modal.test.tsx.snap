@@ -1,0 +1,253 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GiveUpModal renders the Modal 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content small"
+    >
+      <h2>
+        Stop Game
+      </h2>
+      <p>
+        Are you sure to give up?
+      </p>
+      <div
+        class="modal__footer"
+      >
+        <button
+          class="modal__button"
+        >
+          Yes
+        </button>
+        <button
+          class="modal__button"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal - situations: does not render the Modal successfully when gameStatus < gameStatus.length 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content small"
+    >
+      <span
+        class="modal__close"
+      >
+        ×
+      </span>
+      <p>
+        Oops, Something went wrong!
+      </p>
+      <div
+        class="modal__footer"
+      >
+        <button
+          class="modal__button"
+        >
+          Play again!
+        </button>
+        <button
+          class="modal__button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal - situations: does not render the Modal successfully when gameStatus > gameStatus.length 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content small"
+    >
+      <span
+        class="modal__close"
+      >
+        ×
+      </span>
+      <h2 />
+      <p />
+      <div
+        class="modal__footer"
+      >
+        <button
+          class="modal__button"
+        >
+          Play again!
+        </button>
+        <button
+          class="modal__button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal - situations: renders the (GameInfo) Modal 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content null"
+    >
+      <span
+        class="modal__close"
+      >
+        ×
+      </span>
+      <h2>
+        Mastermind game info
+      </h2>
+      <article>
+        <p>
+          MasterMind is a game whereby the user guesses code on four pegs. The player has eight chances to guess the color code.
+        </p>
+        <p>
+          To choose a color, select from the side one of the colors pegs. After selecting the color, the player can fill the row of the board.
+        </p>
+        <p>
+          When the player selects a code pattern, the code will be reviewed and provides feedback through clues. The black peg means that the chosen peg color and position are correct. The red peg means that the peg color retains in the code although the position is not.
+        </p>
+      </article>
+      <div
+        class="modal__footer__secondary"
+      >
+        <button
+          class="modal__button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal - situations: renders the (Loser) Modal 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content small"
+    >
+      <span
+        class="modal__close"
+      >
+        ×
+      </span>
+      <h2>
+        Loser!
+      </h2>
+      <p>
+        You lose, next time better!
+      </p>
+      <div
+        class="modal__footer"
+      >
+        <button
+          class="modal__button"
+        >
+          Play again!
+        </button>
+        <button
+          class="modal__button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal - situations: renders the (Not yet) Modal 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content small"
+    >
+      <span
+        class="modal__close"
+      >
+        ×
+      </span>
+      <h2>
+        Not Yet!
+      </h2>
+      <p>
+        You did not give the code colors.
+      </p>
+      <div
+        class="modal__footer__secondary"
+      >
+        <button
+          class="modal__button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal - situations: renders the (Winner) Modal 1`] = `
+<div>
+  <div
+    class="modal active"
+  >
+    <div
+      class="modal__content small"
+    >
+      <span
+        class="modal__close"
+      >
+        ×
+      </span>
+      <h2>
+        Winner!
+      </h2>
+      <p>
+        You win, play again!
+      </p>
+      <div
+        class="modal__footer"
+      >
+        <button
+          class="modal__button"
+        >
+          Play again!
+        </button>
+        <button
+          class="modal__button"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -9,7 +9,7 @@ import { Color } from "../ts/Color";
 import Board from "./Board";
 import CluePeg from "./CluePeg";
 import GiveUpModal from "../Modal/GiveUpModal";
-import Modal from "../Modal/Modal/Modal";
+import Modal from "../Modal/Modal";
 import Peg from "./Peg";
 import Row from "./Row";
 import { showCodeAnswer } from "./View";
@@ -23,7 +23,7 @@ const MasterMind = () => {
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode());
 	const [currentColor, setCurrentColor] = useState<Color>();
-	const [gameStatus, setGameStatus] = useState<number>(1); // 0: gameInfo, 1: not filled/ongoing, 2: winner, 3: loser
+	const [gameStatus, setGameStatus] = useState<number>(1); // 0: gameInfo, 1: not filled, 2: winner, 3: loser
 	const [board, setBoard] = useState({ gameBoard: initializeBoard(), clueBoard: initializeBoard()});
 	const [boardView, setBoardView] = useState<JSX.Element[]>();
 	const [cluesBoardView, setCluesBoardView] = useState<JSX.Element[]>();
@@ -40,13 +40,13 @@ const MasterMind = () => {
 		openModal();
 	}
 
-	const stopGame = () => setGameStatus(3);
+	const stopGame = () => setGameStatus(0);
 
 	const resetGame = () => {
 		setCode(createCode());
 		setTurn(0);
 		setBoard({ gameBoard: initializeBoard(), clueBoard: initializeBoard() });
-		setGameStatus(1);
+		stopGame();
 	};
 
 	const checkCode = () => {

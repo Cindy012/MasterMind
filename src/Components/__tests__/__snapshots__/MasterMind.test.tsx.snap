@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mastermind renders the component 1`] = `
+<div>
+  <div
+    class="mastermind"
+  >
+    <div
+      class="mastermind__header"
+    >
+      <h1>
+        MASTERMIND
+      </h1>
+    </div>
+    <div
+      class="mastermind__header__icons"
+    >
+      <button
+        class="button__icon"
+      >
+        <img
+          alt=""
+          class="image__icon"
+          src="give-up.png"
+        />
+      </button>
+      <button
+        class="button__icon"
+      >
+        <img
+          alt=""
+          class="image__icon"
+          src="play-again.png"
+        />
+      </button>
+      <button
+        class="button__icon"
+      >
+        <img
+          alt=""
+          class="image__icon"
+          src="information.png"
+        />
+      </button>
+    </div>
+    <div
+      class="mastermind__board-content"
+    >
+      <div
+        class="board"
+      />
+      <div
+        class="board-clue"
+      />
+      <div
+        class="mastermind__side"
+      >
+        <h2>
+          1
+        </h2>
+        <button
+          class="button button__check"
+        >
+          Check
+        </button>
+        <div
+          class="color-peg-options"
+        />
+      </div>
+    </div>
+    <div
+      class="modal "
+    >
+      <div
+        class="modal__content small"
+      >
+        <h2>
+          Not Yet!
+        </h2>
+        <p>
+          You did not give the code colors.
+        </p>
+        <div
+          class="modal__footer__secondary"
+        >
+          <button
+            class="modal__button"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal "
+    >
+      <div
+        class="modal__content small"
+      >
+        <h2>
+          Stop Game
+        </h2>
+        <p>
+          Are you sure to give up?
+        </p>
+        <div
+          class="modal__footer"
+        >
+          <button
+            class="modal__button"
+          >
+            Yes
+          </button>
+          <button
+            class="modal__button"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
