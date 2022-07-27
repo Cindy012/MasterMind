@@ -1,6 +1,7 @@
 {
   "name": "mastermind",
   "version": "0.1.0",
+  "homepage": "https://Cindy012.github.io/MasterMind",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -19,6 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -43,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "@types/canvas-confetti": "^1.4.3"
+    "@types/canvas-confetti": "^1.4.3",
+    "gh-pages": "^4.0.0"
   }
 }
