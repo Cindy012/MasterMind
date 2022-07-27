@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/MasterMind/static/css/main.a0b0c8be.css",
+    "main.js": "/MasterMind/static/js/main.36ba77bb.js",
+    "static/js/787.fa281d04.chunk.js": "/MasterMind/static/js/787.fa281d04.chunk.js",
+    "index.html": "/MasterMind/index.html",
+    "main.a0b0c8be.css.map": "/MasterMind/static/css/main.a0b0c8be.css.map",
+    "main.36ba77bb.js.map": "/MasterMind/static/js/main.36ba77bb.js.map",
+    "787.fa281d04.chunk.js.map": "/MasterMind/static/js/787.fa281d04.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a0b0c8be.css",
+    "static/js/main.36ba77bb.js"
+  ]
+}
