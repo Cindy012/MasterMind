@@ -19,8 +19,6 @@ import giveUpIcon from "../image/give-up.png";
 import informationIcon from "../image/information.png";
 import playAgainIcon from "../image/play-again.png";
 
-
-
 const MasterMind = () => {
 	const [turn, setTurn] = useState<number>(0);
 	const [code, setCode] = useState<Color[]>(createCode());
